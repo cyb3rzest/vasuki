@@ -92,15 +92,15 @@ Example Usage:
 vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s]
 
 Flags:
-   -d, --domain            string       Add your target                                 -d target.tld
-   -x, --exclude            string       Exclude out of scope domains            -x ~/dommains.list
-   -r, --resolver             string       Resolver Name                                   -r 8.8.8.8, 8.8.4.4, 10.10.10.10
-   -rF, --resolvers          string       Resolver File List                                -rF ~/resolver.txt
+   -d, --domain            string       Add your target                         -d target.tld
+   -x, --exclude           string       Exclude out of scope domains            -x ~/dommains.list
+   -r, --resolver          string       Resolver Name                           -r 8.8.8.8, 8.8.4.4, 10.10.10.10
+   -rF, --resolvers        string       Resolver File List                      -rF ~/resolver.txt
 
 Optional Flags:
    -s, --silent        Hide output in the terminal             Default: False
    -j, --json          Store output in a single json file      Default: False
-   -v, --version     Print current version of vasuki
+   -v, --version       Print current version of vasuki
 
 ```
 **Fix errors while using or installing vasuki**
