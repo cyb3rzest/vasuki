@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/cyb3rzest/Vasuki/"><img src="github/img/vasuki.png" width="500px" alt="Vasuki"></a>
+  <a href="https://github.com/cyb3rzest/Vasuki/"><img src="github/img/vasuki.png" width="175px" alt="Vasuki"></a>
 </h1>
                                                                                                                                             
 <h4 align="center">An automation tool that scans sub-domains, sub-domain takeover and then filters out xss, ssti, ssrf and more injection point parameters.</h4>
@@ -10,7 +10,7 @@
 <a href="https://buymeacofee.com/cyb3rzest"><img src="https://img.shields.io/badge/buy%20me%20a%20Coffee%20-donate-red"></a>
 <a href="https://twitter.com/cyb3rzest/"><img src="https://img.shields.io/badge/twitter-%40CyberZeast-blue.svg"></a>
 <a href="https://github.com/cyb3rzest/Vasuki/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
-<a href="https://github.com/cyb3rzest/Vasuki/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-cyan.svg"></a>
+<a href="https://github.com/cyb3rzest/Vasuki/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-BSL-cyan.svg"></a>
 <a href="#"><img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></a>
 <a href="https://github.com/cyb3rzest?tab=followers"><img src="https://img.shields.io/badge/github-%40cyb3rzest-red"></a>
 </p>
