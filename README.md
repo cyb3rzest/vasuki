@@ -1,13 +1,13 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/cyb3rzest/Vasuki/"><img src=".github/img/vasuki.png" width="500px" alt="Vasuki"></a>
+  <a href="https://github.com/cyb3rzest/Vasuki/"><img src="github/img/vasuki.png" width="500px" alt="Vasuki"></a>
 </h1>
                                                                                                                                             
 <h4 align="center">An automation tool that scans sub-domains, sub-domain takeover and then filters out xss, ssti, ssrf and more injection point parameters.</h4>
 
 <p align="center">
 <a href="#"><img src="https://madewithlove.org.in/badge.svg"></a>
-<a href="https://ko-fi.com/i/IK3K34SJSA"><img src="https://img.shields.io/badge/buy%20me%20a%20ko--fi%20-donate-red"></a>
+<a href="https://buymeacofee.com/cyb3rzest"><img src="https://img.shields.io/badge/buy%20me%20a%20Coffee%20-donate-red"></a>
 <a href="https://twitter.com/cyb3rzest/"><img src="https://img.shields.io/badge/twitter-%40CyberZeast-blue.svg"></a>
 <a href="https://github.com/cyb3rzest/Vasuki/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 <a href="https://github.com/cyb3rzest/Vasuki/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-cyan.svg"></a>
@@ -25,7 +25,7 @@ The script first enumerates all the subdomains of the give target domain using a
 
 <h3 align="left">How vasuki works</h3>
 <p align="center"><br/>
-<img src=".github/img/mindmap.png" alt="Vasuki mindmap"><br/>
+<img src="github/img/mindmap.png" alt="Vasuki mindmap"><br/>
 <!-- <img src="img/roadmap.png" alt="How vasuki works""> -->
 </p><br/>
 
