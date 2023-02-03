@@ -13,6 +13,7 @@
 <a href="https://github.com/cyb3rzest/Vasuki/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-BSL-cyan.svg"></a>
 <a href="#"><img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></a>
 <a href="https://github.com/cyb3rzest?tab=followers"><img src="https://img.shields.io/badge/github-%40cyb3rzest-red"></a>
+<a href="https://github.com/LuD1161"><img src="https://img.shields.io/badge/Special%20Thanks-LuD1161-yellowgreen"></a>
 </p>
 
 ---
@@ -196,7 +197,7 @@ vasuki runs as root inside the container & so it is advisable to configure Linux
 
 ### Thanks to the authors of the tools used in this script.
 
-[`@aboul3la`](https://github.com/aboul3la) [`@tomnomnom`](https://github.com/tomnomnom) [`@lc`](https://github.com/lc) [`@hahwul`](https://github.com/hahwul) [`@projectdiscovery`](https://github.com/projectdiscovery) [`@maurosoria`](https://github.com/maurosoria) [`@shelld3v`](https://github.com/shelld3v) [`@devanshbatham`](https://github.com/devanshbatham) [`@michenriksen`](https://github.com/michenriksen) [`@defparam`](https://github.com/defparam/) [`@projectdiscovery`](https://github.com/projectdiscovery) [`@bp0lr`](https://github.com/bp0lr/) [`@ameenmaali`](https://github.com/ameenmaali) [`@dwisiswant0`](https://github.com/dwisiswant0) [`@OWASP`](https://github.com/OWASP/) [`@1ndianl33t`](https://github.com/1ndianl33t) [`@sqlmapproject`](https://github.com/sqlmapproject) [`@w9w`](https://github.com/w9w) [`@OJ`](https://github.com/OJ) [`@jaeles-project`](https://github.com/jaeles-project) [`@s0md3v`](https://github.com/s0md3v) [`@ffuf`](https://github.com/ffuf) [`@blechschmidt`](https://github.com/blechschmidt/) [`@robertdavidgraham`](https://github.com/robertdavidgraham/)
+[`@aboul3la`](https://github.com/aboul3la) [`@tomnomnom`](https://github.com/tomnomnom) [`@lc`](https://github.com/lc) [`@hahwul`](https://github.com/hahwul) [`@projectdiscovery`](https://github.com/projectdiscovery) [`@maurosoria`](https://github.com/maurosoria) [`@shelld3v`](https://github.com/shelld3v) [`@devanshbatham`](https://github.com/devanshbatham) [`@michenriksen`](https://github.com/michenriksen) [`@defparam`](https://github.com/defparam/) [`@projectdiscovery`](https://github.com/projectdiscovery) [`@bp0lr`](https://github.com/bp0lr/) [`@ameenmaali`](https://github.com/ameenmaali) [`@dwisiswant0`](https://github.com/dwisiswant0) [`@OWASP`](https://github.com/OWASP/) [`@1ndianl33t`](https://github.com/1ndianl33t) [`@sqlmapproject`](https://github.com/sqlmapproject) [`@w9w`](https://github.com/w9w) [`@OJ`](https://github.com/OJ) [`@jaeles-project`](https://github.com/jaeles-project) [`@s0md3v`](https://github.com/s0md3v) [`@ffuf`](https://github.com/ffuf) [`@blechschmidt`](https://github.com/blechschmidt/) [`@robertdavidgraham`](https://github.com/robertdavidgraham/) [`@Asheem Shrey`](https://github.com/LuD1161/)
 
 
 **Warning:** This code was originally created for personal use, it generates a substantial amount of traffic, please use with caution.
