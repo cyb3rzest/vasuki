@@ -1,7 +1,7 @@
 #!/bin/bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 1.0
+# Vasuki - version 1.2
 
 #### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
 BK="\e[38;5;166m" #Blink
