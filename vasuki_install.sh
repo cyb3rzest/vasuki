@@ -47,7 +47,9 @@ golanguage(){
     rm -rf /usr/local/go && tar -C /usr/local -xzf $goversion.linux-amd64.tar.gz
     export PATH=$PATH:/usr/local/go/bin
     echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+    echo 'source ~/go/pkg/mod/github.com/tomnomnom/gf@*/gf-completion.bash' >> ~/.bashrc
     source ~/.bashrc
+    cp -r ~/go/pkg/mod/github.com/tomnomnom/gf@*/examples ~/.gf
     if command -v go &> /dev/null; then
         echo -e "\n${GR}GO INSTALLED SUCCESSFULLY${NORMAL}"
     else
@@ -64,6 +66,8 @@ dependencies(){
     sudo apt upgrade -y > /dev/null 2>&1
     sudo apt install apt-transport-https bsdmainutils build-essential snapd cmake curl dnsutils gcc git jq libdata-hexdump-perl libffi-dev libpcap-dev libssl-dev libxml2-dev libxml2-utils libxslt1-dev lynx medusa nmap procps pv python3 python3-dev python3-pip wget zip unzip zlib1g-dev libpcap-dev screen make gcc -y > /dev/null 2>&1
     sudo snap install chromium > /dev/null 2>&1
+    cd /root/ && git clone https://github.com/1ndianl33t/Gf-Patterns
+    mv ~/Gf-Patterns/*.json ~/.gf
     echo -e "${GR}SUCCESS${NORMAL}\n"
 }
 
@@ -77,7 +81,7 @@ githubd(){
     if command -v bhedak &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING BHEDAK MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing uro"
@@ -85,7 +89,7 @@ githubd(){
     if command -v uro &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING URO MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing anew"
@@ -93,7 +97,7 @@ githubd(){
     if [ -f ~/go/bin/anew ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING ANEW MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing naabu"
@@ -101,7 +105,7 @@ githubd(){
     if [ -f ~/go/bin/naabu ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING NAABU MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing gobuster"
@@ -109,7 +113,7 @@ githubd(){
     if [ -f ~/go/bin/gobuster ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GOBUSTER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing gf"
@@ -117,7 +121,7 @@ githubd(){
     if [ -f ~/go/bin/gf ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GF MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing gospider"
@@ -127,7 +131,7 @@ githubd(){
     if [ -f ~/go/bin/gospider ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GOSPIDER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing findomain"
@@ -138,7 +142,7 @@ githubd(){
     if command -v findomain &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING FINDOMAIN MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing aquatone"
@@ -149,7 +153,7 @@ githubd(){
     if command -v aquatone &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING AQUATONE MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing assetfinder"
@@ -157,7 +161,7 @@ githubd(){
     if [ -f ~/go/bin/assetfinder ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING ASSETFINDER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing gau"
@@ -165,7 +169,7 @@ githubd(){
     if [ -f ~/go/bin/gau ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GAU MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing waybackurls"
@@ -173,7 +177,7 @@ githubd(){
     if [ -f ~/go/bin/waybackurls ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING WAYBACKURLS MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing kxss"
@@ -181,7 +185,7 @@ githubd(){
     if [ -f ~/go/bin/kxss ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING KXSS MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing qsreplace"
@@ -189,7 +193,7 @@ githubd(){
     if [ -f ~/go/bin/qsreplace ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING QSREPLACE MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing ffuf"
@@ -198,7 +202,7 @@ githubd(){
     if [ -f ~/go/bin/ffuf ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING FFUF MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing dnsx"
@@ -206,7 +210,7 @@ githubd(){
     if [ -f ~/go/bin/dnsx ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING DNSX MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing notify"
@@ -214,7 +218,7 @@ githubd(){
     if [ -f ~/go/bin/notify ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING NOTIFY MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing dalfox"
@@ -222,7 +226,7 @@ githubd(){
     if [ -f ~/go/bin/dalfox ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING DALFOX MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing crlfuzz"
@@ -231,7 +235,7 @@ githubd(){
     if [ -f ~/go/bin/crlfuzz ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING CURLFUZZ MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing nuclei"
@@ -239,7 +243,7 @@ githubd(){
     if [ -f ~/go/bin/nuclei ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING NUCLEI MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing subfinder"
@@ -247,7 +251,7 @@ githubd(){
     if [ -f ~/go/bin/subfinder ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING SUBFINDER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing httprobe"
@@ -256,7 +260,7 @@ githubd(){
     if [ -f ~/go/bin/httprobe ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING HTTPROBE MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing httpx"
@@ -264,7 +268,7 @@ githubd(){
     if [ -f ~/go/bin/httpx ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING HTTPX MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing amass"
@@ -272,7 +276,7 @@ githubd(){
     if [ -f ~/go/bin/amass ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING AMASS MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing MASSDNS"
@@ -282,7 +286,7 @@ githubd(){
     if [ -f /bin/massdns ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING MASSDNS MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing MASSCAN"
@@ -292,15 +296,7 @@ githubd(){
     if [ -f /bin/masscan ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
-    fi
-
-    echo -e "\n- Installing gobuster"
-    go install github.com/OJ/gobuster/v3@latest > /dev/null 2>&1
-    if [ -f ~/go/bin/gobuster ]; then
-        echo -e "${GR}SUCCESS${NORMAL}"
-    else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING MASSCAN MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing Vayu"
@@ -308,7 +304,7 @@ githubd(){
     if command -v agnee &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING VAYU MANUALLY${NORMAL}"
     fi
 }
 
@@ -321,8 +317,9 @@ wordlistsd(){
     cd dnsvalidator
     python3 setup.py install
     echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.bashrc
-    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.bashrc
-    source ~/.bashrc
+    cd ~/vasuki/wordlists/
+    cp ~/vasuki/vasuki /usr/bin/
+    cp ~/vasuki/vasuki /bin/
     source ~/.bashrc
 
     wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/deepmagic.com-prefixes-top50000.txt -O subdomains.txt
@@ -331,6 +328,7 @@ wordlistsd(){
     cd /usr/share/nmap/scripts/
     git clone https://github.com/vulnersCom/nmap-vulners.git
     cd ~/vasuki/wordlists/
+    source ~/.bashrc
     if [ -s subdomains.txt ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
