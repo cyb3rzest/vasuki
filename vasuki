@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 1.0
+# Vasuki - version 2.0
 
 #@> CHECK CONNECTION
 wget -q --spider http://google.com
@@ -32,7 +32,7 @@ RF=
 SL=False
 JO=False
 RO=False
-VR="Vasuki v1.0"
+VR="Vasuki v2.0"
 PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
 
 
@@ -148,7 +148,7 @@ ${NORMAL}"
     echo -e ""
     echo -e "${BOLD}${LIGHT_MAGENTA}DOMAIN> ${NORMAL}" | tr -d "\n"; echo -e " $DM" | pv -qL 6
     echo -e "${BOLD}${LIGHT_MAGENTA}OUTPUT> ${NORMAL}" | tr -d "\n"; echo -e " $(pwd | sed 's/\// < /g' | cut -c 4-)" | pv -qL 6
-    echo -e "[VASUKI] - Scanning started on $DM at $ReconStartTime" | notify -silent
+    echo -e "${BOLD}[VASUKI]${NORMAL} - Scanning started on $DM at $ReconStartTime" | notify -silent
 }
 
 #@> MAKE FOLDERS
@@ -173,12 +173,12 @@ SUBD_PASV(){
     findomain -t $DM --threads 40 -u $resultDir/tmp/findomain.list &> /dev/null
 }
 
-#SUBD_ACTV(){
-#   timeout 50m ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w $RF -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json -s 2> /dev/null &> /dev/null
-#    timeout 50m gobuster dns -d $DM --no-error -z -q -t 100 -w $RF 2> /dev/null | sed 's/Found: //g' | anew -q $resultDir/tmp/gobuster.list
+SUBD_ACTV(){
+#    ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w ~/vasuki/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json 2> /dev/null &> /dev/null
+    gobuster dns -d $DM --no-error -z -q -t 100 -w ~/vasuki/wordlists/subdomains.txt 2> /dev/null | sed 's/Found: //g' | anew -q $resultDir/tmp/gobuster.list
 #    timeout 50m amass enum -active -brute -w ~/vasuki/wordlists/subdomains.txt -d $DM -rf $RF -o $resultDir/tmp/amassact.list &> /dev/null
-#    cat $resultDir/tmp/ffuf.json 2> /dev/null | jq -r '.results[] | .host' 2> /dev/null | anew -q $resultDir/tmp/ffuf.list && rm -rf $resultDir/tmp/ffuf.json
-#}
+    cat $resultDir/tmp/ffuf.json 2> /dev/null | jq -r '.results[] | .host' 2> /dev/null | anew -q $resultDir/tmp/ffuf.list && rm -rf $resultDir/tmp/ffuf.json
+}
 
 
 SUBD_SCND(){
@@ -198,7 +198,7 @@ SUBD_CHCK(){
     #@> WEB PROBING AND SCREENSHOT
     naabu -retries 3 -r $RF -l $resultDir/subdomains.txt -p "$PR" -silent -no-color 2> /dev/null | anew -q $resultDir/ports.txt
     cat $resultDir/ports.txt | httprobe -prefer-https | anew -q $resultDir/lives.txt
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | aquatone -chrome-path $CHROME_BIN -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
+#    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | aquatone -chrome-path $CHROME_BIN -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/lives.txt | python3 -c "import sys; import json; print (json.dumps({'liveurls':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/liveurls.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/subdomains.txt | python3 -c "import sys; import json; print (json.dumps({'subdomains':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/subdomains.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/ports.txt | python3 -c "import sys; import json; print (json.dumps({'ports':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/ports.json &> /dev/null
@@ -208,7 +208,7 @@ SUBD_SCAN(){
     echo -e ""
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING SUBDOMAIN SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
     SUBD_PASV
-#   SUBD_ACTV
+    SUBD_ACTV
     SUBD_SCND
     SUBD_CHCK
     [ "$SL" == "False" ] && cat $resultDir/lives.txt 2> /dev/null
@@ -218,58 +218,32 @@ SUBD_SCAN(){
 #@> IP SCAN AND FILTERING
 find_ips(){
     echo -e "${LIGHT_YELLOW}Now doing massdns on the domain${NORMAL}"
-  # Do masscanning only when massdns is finished working
-#    massdnsOutput=$resultDir/$DM.ips.txt
-#    allSubdomainsOutput=$resultDir/subdomains.txt
-    massdnstemp=$DM.massdns.tmp
+    massdnstemp=massdns.tmp
     massdns -r $RF -t A -o S -w $massdnstemp $resultDir/subdomains.txt | tee -a $resultDir/massdns-log.txt
-    # resolved domain names
-    # cat $massdnstemp | cut -f1 -d" " | sed -e "s/\.$//g" | sort -u 
-    cat $massdnstemp | cut -d" " -f3 | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> $resultDir/$DM.ips.txt
+    cat $massdnstemp | cut -d" " -f3 | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> $resultDir/ips.txt
     rm $massdnstemp
     echo -e "${LIGHT_GREEN}Massdns complete${NORMAL}"
-    #################   MASSDNS COMPLETE  ################################# 
 }
 
 find_ipclean(){
     echo -e "${LIGHT_YELLOW}Cleaning ip for masscan, obtained from massdns${NORMAL}"
-#    ipfile=$resultDir/$DM.massdns_clean_ip.txt
-    python3 ~/vasuki/clean-ip.py $resultDir/$DM.ips.txt $resultDir/$DM.massdns_clean_ip.txt
+    python3 ~/vasuki/clean-ip.py $resultDir/ips.txt $resultDir/clean_ip.txt
 }
 
-MASSCAN_IP(){
-################################ MASSCAN ####################################
+masscan_ip(){
     echo -e "${LIGHT_YELLOW}Now doing masscan on all the obtained ip addreses from massdns${NORMAL}"
-#    masscanOutput=$resultDir/$DM.masscan.txt
-    masscan -iL $resultDir/$DM.massdns_clean_ip.txt -p1-65535 --rate=10000 > $resultDir/$DM.masscan.txt    
-    sed -i -e "/#/d " -e "/^$/* " $resultDir/$DM.masscan.txt
-    cut -d" " -f4,6 $resultDir/$DM.masscan.txt | awk '{print($2","$1)}' | sort -V > $resultDir/$DM.masscan-sorted.txt
-    echo -e "${BOLD}${LIGHT_GREEN}Total unique IP-Ports found : `wc -l $resultDir/$DM.masscan-sorted.txt`${NORMAL}"
+    masscan -iL $resultDir/clean_ip.txt -p1-65535 --rate=10000 > $resultDir/masscan.txt    
+    sed -i -e "/#/d " -e "/^$/* " $resultDir/masscan.txt
+    cut -d" " -f4,6 $resultDir/masscan.txt | awk '{print($2","$1)}' | sort -V > $resultDir/masscan-sorted.txt
     echo -e "${LIGHT_GREEN}Masscan complete${NORMAL}"
-#####################   MASSCAN COMPLETE  ####################################   	
-  	
-#####################   NMAP SORTED FILE PYTHON  ############################
-#   nmapFile1=$resultDir/$DM.nmap-sorted.txt
-    nmapFile2=$resultDir/$DM.nmap-feedable.txt
-    echo -e "${LIGHT_YELLOW}Sorting ${LIGHT_YELLOW}$resultDir/$DM.masscan-sorted.txt for creating nmap suitable file${NORMAL}"     
-    sort -k1 $resultDir/$DM.masscan-sorted.txt | awk -F, '{printf $1" "; print $2}' | awk '{if (a!=$1) {if (a) print ""}; printf $0","; a=$1}' | sed 's/,$//' > $resultDir/$DM.nmap-sorted.txt
-    tr -d '/tcp' < $resultDir/$DM.nmap-sorted.txt > $nmapFile2
-    rm $resultDir/$DM.nmap-sorted.txt 
-#####################   NMAP SORTED FILE PYTHON COMPLETE  ###################
-
-#####################   NMAP  ###############################################
-#     nmapOutput=$resultDir/nmap/$DM.nmap
+    nmapFile2=$resultDir/nmap-feedable.txt    
+    sort -k1 $resultDir/masscan-sorted.txt | awk -F, '{printf $1" "; print $2}' | awk '{if (a!=$1) {if (a) print ""}; printf $0","; a=$1}' | sed 's/,$//' > $resultDir/nmap-sorted.txt
+    tr -d '/tcp' < $resultDir/nmap-sorted.txt > $nmapFile2
+    rm $resultDir/nmap-sorted.txt
 }
 
 nmap_run(){
     filePath=$nmapFile2
-
-    if [ ! -f $filePath ]
-    then
-        echo "Error: Must supply file"
-        exit 1
-    fi
-
     while read -r line
     do
         IP=`echo $line | cut -d" " -f1`
@@ -277,10 +251,20 @@ nmap_run(){
         echo "Scanning $IP : $ports : $3"
         nmap -Pn -n -v -A -sV --script=vulscan.nse $IP -p$ports -oA $resultDir/nmap/$IP.vulscan | tee -a $resultDir/nmap/nmap-vulscan-log.txt
         nmap -Pn -n -v -A -sV --script=nmap-vulners/vulners.nse $IP -p$ports -oA $resultDir/nmap/$IP.vulners | tee -a $resultDir/nmap/nmap-vulners-log.txt
-    done > $resultDir/$DM.nmap.finished
+    done > $resultDir/nmap.finished
 }
 
-######################   NMAP COMPLETE  ######################################
+IP_SCAN(){
+    echo -e ""
+    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING IP And PORT SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
+    find_ips
+    find_ipclean
+    masscan_ip
+    nmap_run
+    [ "$SL" == "False" ] && cat $nmapFile2 2> /dev/null
+    echo -e "IP-PORT Scanning completed, total [IP's:$(cat $resultDir/clean_ip.txt | wc -l)  Ports:$(cat $resultDir/masscan-sorted.txt | wc -l)] found" | notify -silent &> /dev/null
+}
+
 
 #@> WEB CRAWLING AND FILTERING
 WEBC_RAWL(){
@@ -378,12 +362,12 @@ SEND_NOTE(){
     echo -e "Total Time taken : ${LIGHT_GREEN} $(( $ReconEndTime-$ReconStartTime )) ${NORMAL}seconds"    
 }
 
-VAULT(){
+VAULT1(){
     SUBD_SCAN 2> /dev/null
-    find_ips 2> /dev/null
-    find_ipclean 2> /dev/null
-    MASSCAN_IP 2> /dev/null
-    nmap_run 2> /dev/null
+    IP_SCAN 2> /dev/null
+}
+
+VAULT2(){
     WEBC_RAWL 2> /dev/null
     NUCL_SCAN 2> /dev/null
     VULN_SCAN 2> /dev/null
@@ -395,6 +379,7 @@ while true
 do
     INFOM
     MAKDR
-    VAULT
+    VAULT1
+    VAULT2
     exit
 done
