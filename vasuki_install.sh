@@ -190,12 +190,12 @@ githubd(){
         echo -e "${RED}FAILED, TRY INSTALLING KXSS MANUALLY${NORMAL}"
     fi
 
-    echo -e "\n- Installing kxss"
+    echo -e "\n- Installing Gxss"
     go install github.com/KathanP19/Gxss@latestt > /dev/null 2>&1
     if [ -f ~/go/bin/Gxss ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING KXSS MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GXSS MANUALLY${NORMAL}"
     fi
  
     echo -e "\n- Installing qsreplace"
