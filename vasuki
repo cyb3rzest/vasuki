@@ -174,9 +174,9 @@ SUBD_PASV(){
 }
 
 SUBD_ACTV(){
-#    ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w ~/vasuki/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json 2> /dev/null &> /dev/null
+    ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w ~/vasuki/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json 2> /dev/null &> /dev/null
     gobuster dns -d $DM --no-error -z -q -t 100 -w ~/vasuki/wordlists/subdomains.txt 2> /dev/null | sed 's/Found: //g' | anew -q $resultDir/tmp/gobuster.list
-#    timeout 50m amass enum -active -brute -w ~/vasuki/wordlists/subdomains.txt -d $DM -rf $RF -o $resultDir/tmp/amassact.list &> /dev/null
+    amass enum -active -brute -w ~/vasuki/wordlists/subdomains.txt -d $DM -rf $RF -o $resultDir/tmp/amassact.list &> /dev/null
     cat $resultDir/tmp/ffuf.json 2> /dev/null | jq -r '.results[] | .host' 2> /dev/null | anew -q $resultDir/tmp/ffuf.list && rm -rf $resultDir/tmp/ffuf.json
 }
 
@@ -198,7 +198,7 @@ SUBD_CHCK(){
     #@> WEB PROBING AND SCREENSHOT
     naabu -retries 3 -r $RF -l $resultDir/subdomains.txt -p "$PR" -silent -no-color 2> /dev/null | anew -q $resultDir/ports.txt
     cat $resultDir/ports.txt | httprobe -prefer-https | anew -q $resultDir/lives.txt
-#    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | aquatone -chrome-path $CHROME_BIN -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
+    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | aquatone -chrome-path $CHROME_BIN -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/lives.txt | python3 -c "import sys; import json; print (json.dumps({'liveurls':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/liveurls.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/subdomains.txt | python3 -c "import sys; import json; print (json.dumps({'subdomains':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/subdomains.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/ports.txt | python3 -c "import sys; import json; print (json.dumps({'ports':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/ports.json &> /dev/null
@@ -294,7 +294,7 @@ WEBC_RAWL(){
 NUCL_SCAN(){
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING NUCLEI VULNERABILITY SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent
     nuclei -update-templates 2> /dev/null &> /dev/null
-#    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s info" 2> /dev/null | anew -q $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s info" 2> /dev/null | anew -q $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
     xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s low" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
     xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s medium" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
     xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s high" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
