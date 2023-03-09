@@ -1,7 +1,7 @@
 #!/bin/bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 1.2
+# Vasuki - version 2.0
 
 #### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
 BK="\e[38;5;166m" #Blink
@@ -53,7 +53,7 @@ golanguage(){
     if command -v go &> /dev/null; then
         echo -e "\n${GR}GO INSTALLED SUCCESSFULLY${NORMAL}"
     else
-        echo -e "\n${YW}THERE'S A PROBLEM INSTALLING GO, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "\n${YW}THERE'S A PROBLEM IN INSTALLING ${LIGHT_GREEN}GO${NORMAL}, TRY INSTALLING IT MANUALLY${NORMAL}"
     fi
     rm -rf $goversion.linux-amd64.tar.gz
 }
@@ -64,6 +64,8 @@ dependencies(){
     echo -e "${BK}${BOLD}${UNDERLINE}${MAGENTA}INSTALLING ALL DEPENDENCIES${NORMAL}"
     sudo apt update > /dev/null 2>&1
     sudo apt upgrade -y > /dev/null 2>&1
+    pip3 install requests
+    pip3 install ipaddress
     sudo apt install apt-transport-https bsdmainutils build-essential snapd cmake curl dnsutils gcc git jq libdata-hexdump-perl libffi-dev libpcap-dev libssl-dev libxml2-dev libxml2-utils libxslt1-dev lynx medusa nmap procps pv python3 python3-dev python3-pip wget zip unzip zlib1g-dev libpcap-dev screen make gcc -y > /dev/null 2>&1
     sudo snap install chromium > /dev/null 2>&1
     cd /root/ && git clone https://github.com/1ndianl33t/Gf-Patterns
@@ -113,7 +115,7 @@ githubd(){
     if [ -f ~/go/bin/gobuster ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING GOBUSTER MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING GO-BUSTER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing gf"
@@ -188,6 +190,14 @@ githubd(){
         echo -e "${RED}FAILED, TRY INSTALLING KXSS MANUALLY${NORMAL}"
     fi
 
+    echo -e "\n- Installing kxss"
+    go install github.com/KathanP19/Gxss@latestt > /dev/null 2>&1
+    if [ -f ~/go/bin/Gxss ]; then
+        echo -e "${GR}SUCCESS${NORMAL}"
+    else
+        echo -e "${RED}FAILED, TRY INSTALLING KXSS MANUALLY${NORMAL}"
+    fi
+ 
     echo -e "\n- Installing qsreplace"
     go install github.com/tomnomnom/qsreplace@latest > /dev/null 2>&1
     if [ -f ~/go/bin/qsreplace ]; then
@@ -235,7 +245,7 @@ githubd(){
     if [ -f ~/go/bin/crlfuzz ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING CURLFUZZ MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING CRLFUZZ MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing nuclei"
@@ -316,11 +326,12 @@ wordlistsd(){
     git clone https://github.com/vortexau/dnsvalidator.git
     cd dnsvalidator
     python3 setup.py install
-    echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.bashrc
+    echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.zshrc
+#    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.bashrc
     cd ~/vasuki/wordlists/
     cp ~/vasuki/vasuki /usr/bin/
     cp ~/vasuki/vasuki /bin/
-    source ~/.bashrc
+    source ~/.zshrc
 
     wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/deepmagic.com-prefixes-top50000.txt -O subdomains.txt
     git clone https://github.com/scipag/vulscan scipag_vulscan
@@ -328,21 +339,30 @@ wordlistsd(){
     cd /usr/share/nmap/scripts/
     git clone https://github.com/vulnersCom/nmap-vulners.git
     cd ~/vasuki/wordlists/
-    source ~/.bashrc
     if [ -s subdomains.txt ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING 'SUBDOMAIN LIST' MANUALLY${NORMAL}"
     fi
-
+    
+    echo -e "\n- Downloading resolvers wordlists"
+    wget -q https://raw.githubusercontent.com/janmasarik/resolvers/master/resolvers.txt -O resolvers.txt
+    if [ -s resolvers.txt ]; then
+        echo -e "${GR}SUCCESS${RT}"
+    else
+        echo -e "${YW}FAILED${RT}"
+    fi
+ 
     echo -e "\n- Downloading fuzz wordlists"
     wget -q https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/fuzz.txt -O fuzz.txt
     if [ -s fuzz.txt ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
+        source ~/.zshrc
     else
-        echo -e "${RED}FAILED, TRY INSTALLING IT MANUALLY${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING FUZZ-LIST MANUALLY${NORMAL}"
     fi
 
+    source ~/.zshrc
     resolvers
     if [ -s ~/50resolvers.txt ]; then
         echo -e "${GR}SUCCESS. Use ${BOLD}${LIGHT_YELLOW}resolvers${NORMAL}${GR}to generate resolver file at root directory${NORMAL}"
@@ -360,9 +380,7 @@ main(){
     wordlistsd
     echo -e "\n${LIGHT_GREEN}FINISHING UP THINGS.${NORMAL}"
     rm -rf ~/vasuki/.tmp/ > /dev/null 2>&1
-    sudo cp ~/go/bin/* /usr/local/bin/ > /dev/null 2>&1
     sudo cp ~/go/bin/* /usr/bin/ > /dev/null 2>&1
-    sudo cp ~/go/bin/* /bin/ > /dev/null 2>&1
     nuclei -update-templates > /dev/null 2>&1
     echo -e "\nPLEASE CONFIGURE NOTIFY API'S IN ${LIGHT_YELLOW} ~/.config/notify/provider-config.yaml .${NORMAL} FILE"
     echo -e "THANKS FOR INSTALLING ${BOLD}${LIGHT_MAGENTA}VASUKI${NORMAL}. HAPPY HUNTING :)\nPS: If you get any bug using Vasuki, please tweet about it and tag @CyberZeast, also support me with ${BOLD}${LIGHT_GREEN}BuyMeaCoffee${NORMAL}"
