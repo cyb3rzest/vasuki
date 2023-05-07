@@ -7,7 +7,7 @@
 
 <p align="center">
 <a href="#"><img src="https://madewithlove.org.in/badge.svg"></a>
-<a href="https://buymeacofee.com/cyb3rzest"><img src="https://img.shields.io/badge/buy%20me%20a%20Coffee%20-donate-red"></a>
+<a href="https://buymeacoffee.com/cyb3rzest"><img src="https://img.shields.io/badge/buy%20me%20a%20Coffee%20-donate-red"></a>
 <a href="https://twitter.com/cyb3rzest/"><img src="https://img.shields.io/badge/twitter-%40CyberZeast-blue.svg"></a>
 <a href="https://github.com/cyb3rzest/Vasuki/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 <a href="https://github.com/cyb3rzest/Vasuki/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-BSL-cyan.svg"></a>
