@@ -1,7 +1,7 @@
 #!/bin/bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 2.0
+# Vasuki - version 3.0
 
 #### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
 BK="\e[38;5;166m" #Blink
@@ -46,9 +46,9 @@ golanguage(){
     wget https://go.dev/dl/$goversion.linux-amd64.tar.gz -q
     rm -rf /usr/local/go && tar -C /usr/local -xzf $goversion.linux-amd64.tar.gz
     export PATH=$PATH:/usr/local/go/bin
-    echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+    echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.zshrc
     echo 'source ~/go/pkg/mod/github.com/tomnomnom/gf@*/gf-completion.bash' >> ~/.bashrc
-    source ~/.bashrc
+    source ~/.zshrc
     cp -r ~/go/pkg/mod/github.com/tomnomnom/gf@*/examples ~/.gf
     if command -v go &> /dev/null; then
         echo -e "\n${GR}GO INSTALLED SUCCESSFULLY${NORMAL}"
@@ -67,7 +67,9 @@ dependencies(){
     pip3 install requests
     pip3 install ipaddress
     sudo apt install apt-transport-https bsdmainutils build-essential snapd cmake curl dnsutils gcc git jq libdata-hexdump-perl libffi-dev libpcap-dev libssl-dev libxml2-dev libxml2-utils libxslt1-dev lynx medusa nmap procps pv python3 python3-dev python3-pip wget zip unzip zlib1g-dev libpcap-dev screen make gcc -y > /dev/null 2>&1
-    sudo snap install chromium > /dev/null 2>&1
+    sudo apt install chromium > /dev/null 2>&1
+    echo "exec -a "$0" "$HERE/chrome" "$@" --userdata-dir --no-sandbox"
+    echo "CHROMIUM_FLAGS=" --user-data-dir"" >> /etc/chromium-browser/default
     cd /root/ && git clone https://github.com/1ndianl33t/Gf-Patterns
     mv ~/Gf-Patterns/*.json ~/.gf
     echo -e "${GR}SUCCESS${NORMAL}\n"
@@ -139,7 +141,8 @@ githubd(){
     echo -e "\n- Installing findomain"
     curl -LO https://github.com/findomain/findomain/releases/latest/download/findomain-linux-i386.zip  > /dev/null 2>&1
     unzip findomain-linux-i386.zip > /dev/null 2>&1
-    mv findomain /usr/bin/ > /dev/null 2>&1
+    chmod +x findomain*
+    mv findomain* /usr/bin/ > /dev/null 2>&1
     rm -rf findomain* LICENSE.txt README.md
     if command -v findomain &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
@@ -282,7 +285,7 @@ githubd(){
     fi
 
     echo -e "\n- Installing amass"
-    go install -v github.com/OWASP/Amass/v3/...@master > /dev/null 2>&1
+    go install -v github.com/owasp-amass/amass/v3/...@master > /dev/null 2>&1
     if [ -f ~/go/bin/amass ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -327,10 +330,9 @@ wordlistsd(){
     cd dnsvalidator
     python3 setup.py install
     echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.zshrc
-#    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.bashrc
+#    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.zshrc
     cd ~/vasuki/wordlists/
     cp ~/vasuki/vasuki /usr/bin/
-    cp ~/vasuki/vasuki /bin/
     source ~/.zshrc
 
     wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/deepmagic.com-prefixes-top50000.txt -O subdomains.txt
