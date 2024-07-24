@@ -50,43 +50,7 @@ PRINT_USAGE(){
 \t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
 \t\t					v 3.0
 ${NORMAL}"
-    echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissanc#!/usr/bin/env bash
-# coded by CyberZest
-# inspired by Asheem Shrey
-# Vasuki - version 2.0
-
-#@> CHECK CONNECTION
-wget -q --spider http://google.com
-if [ $? -ne 0 ];then
-    echo "Connect to internet before running Vasuki!"
-    exit 127
-fi
-
-#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
-BK="\e[38;5;166m" #Blink
-GR="\e[32m"
-YW="\e[93m"
-NORMAL='\e[0m'
-RED='\e[31m'
-LIGHT_GREEN='\e[92m'
-LIGHT_YELLOW='\e[93m'
-MAGENTA='\e[35m'
-LIGHT_MAGENTA='\e[96m'
-LIGHT_GREY='\e[90m'
-BOLD='\e[1m'
-UNDERLINE='\e[4m'
-#############################################
-
-#@> VARIABLES
-DM=
-EC=
-RF=
-SL=False
-JO=False
-RO=False
-VR="Vasuki v2.0"
-PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
-e Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
+    echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissance Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
     echo -e ""
     echo -e "Example Usage:"
     echo -e "vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s]"
@@ -148,43 +112,7 @@ done
 
 #@> INITIAL CONFIGS
 if [ -z "$DM" ]; then
-    echo -e "\n${BOLD}${LIGHT_MAGENTA}ERROR${NORMAL} - #!/usr/bin/env bash
-# coded by CyberZest
-# inspired by Asheem Shrey
-# Vasuki - version 2.0
-
-#@> CHECK CONNECTION
-wget -q --spider http://google.com
-if [ $? -ne 0 ];then
-    echo "Connect to internet before running Vasuki!"
-    exit 127
-fi
-
-#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
-BK="\e[38;5;166m" #Blink
-GR="\e[32m"
-YW="\e[93m"
-NORMAL='\e[0m'
-RED='\e[31m'
-LIGHT_GREEN='\e[92m'
-LIGHT_YELLOW='\e[93m'
-MAGENTA='\e[35m'
-LIGHT_MAGENTA='\e[96m'
-LIGHT_GREY='\e[90m'
-BOLD='\e[1m'
-UNDERLINE='\e[4m'
-#############################################
-
-#@> VARIABLES
-DM=
-EC=
-RF=
-SL=False
-JO=False
-RO=False
-VR="Vasuki v2.0"
-PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
-TARGET NOT SUPPLIED."
+    echo -e "\n${BOLD}${LIGHT_MAGENTA}ERROR${NORMAL} - TARGET NOT SUPPLIED."
     PRINT_USAGE
 fi
 
@@ -202,43 +130,7 @@ trap ctrl_c INT
 ctrl_c(){
     echo -e ""
     echo -e "${YW} [!] ${NORMAL} KEYBOARD INTERRUPTION, ${RED}EXITING VASUKI${NORMAL}..."
-    exit 127#!/usr/bin/env bash
-# coded by CyberZest
-# inspired by Asheem Shrey
-# Vasuki - version 2.0
-
-#@> CHECK CONNECTION
-wget -q --spider http://google.com
-if [ $? -ne 0 ];then
-    echo "Connect to internet before running Vasuki!"
     exit 127
-fi
-
-#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
-BK="\e[38;5;166m" #Blink
-GR="\e[32m"
-YW="\e[93m"
-NORMAL='\e[0m'
-RED='\e[31m'
-LIGHT_GREEN='\e[92m'
-LIGHT_YELLOW='\e[93m'
-MAGENTA='\e[35m'
-LIGHT_MAGENTA='\e[96m'
-LIGHT_GREY='\e[90m'
-BOLD='\e[1m'
-UNDERLINE='\e[4m'
-#############################################
-
-#@> VARIABLES
-DM=
-EC=
-RF=
-SL=False
-JO=False
-RO=False
-VR="Vasuki v2.0"
-PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
-
 }
 
 #@> BANNER
@@ -295,43 +187,7 @@ FOOT_PRINT(){
     echo -e "${NORMAL}${LIGHT_YELLOW}Searching emails, subdomains, hosts, employee names...${NORMAL}"
     theHarvester -d $DM -b all -l 500 -f $resultDir/footprint/theharvester.html > $resultDir/footprint/theharvester.txt
     echo -e "${NORMAL}${LIGHT_YELLOW}Users found: ${NORMAL}"
-    cat $resultDir/footprint/theharvester.txt | awk '/U#!/usr/bin/env bash
-# coded by CyberZest
-# inspired by Asheem Shrey
-# Vasuki - version 2.0
-
-#@> CHECK CONNECTION
-wget -q --spider http://google.com
-if [ $? -ne 0 ];then
-    echo "Connect to internet before running Vasuki!"
-    exit 127
-fi
-
-#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
-BK="\e[38;5;166m" #Blink
-GR="\e[32m"
-YW="\e[93m"
-NORMAL='\e[0m'
-RED='\e[31m'
-LIGHT_GREEN='\e[92m'
-LIGHT_YELLOW='\e[93m'
-MAGENTA='\e[35m'
-LIGHT_MAGENTA='\e[96m'
-LIGHT_GREY='\e[90m'
-BOLD='\e[1m'
-UNDERLINE='\e[4m'
-#############################################
-
-#@> VARIABLES
-DM=
-EC=
-RF=
-SL=False
-JO=False
-RO=False
-VR="Vasuki v2.0"
-PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
-sers/,/IPs/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/users.list &> /dev/null
+    cat $resultDir/footprint/theharvester.txt | awk '/Users/,/IPs/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/users.list &> /dev/null
     cat $resultDir/footprint/theharvester.txt | awk '/IPs/,/Emails/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/ips.list &> /dev/null
     cat $resultDir/footprint/theharvester.txt | awk '/Emails/,/Hosts/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/email2.list &> /dev/null
     cat $resultDir/footprint/theharvester.txt | awk '/Hosts/,/Trello/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/hosts.list &> /dev/null
@@ -350,45 +206,9 @@ SUBD_PASV(){
 #    curl -s "https://riddler.io/search/exportcsv?q=pld:$DM" | grep -Po "(([\w.-]*)\.([\w]*)\.([A-z]))\w+" | grep -o "\w.*$DM" | anew -q $resultDir/tmp/riddler.list
     echo -e "${LIGHT_GREEN}Cert, HackerTarget, complete${NORMAL}"
 #    amass enum -d $DM -rf $RF -nocolor &> /dev/null && amass db -names -d $DM > $resultDir/tmp/amass.list 
-#    echo -e "${LIGHT_GREEN}AMASS complete${NORMAL}"
+ #   echo -e "${LIGHT_GREEN}AMASS complete${NORMAL}"
     assetfinder --subs-only $DM | anew -q $resultDir/tmp/assetfinder.list &> /dev/null
-    echo -e "${LIGHT_GREEN}A#!/usr/bin/env bash
-# coded by CyberZest
-# inspired by Asheem Shrey
-# Vasuki - version 2.0
-
-#@> CHECK CONNECTION
-wget -q --spider http://google.com
-if [ $? -ne 0 ];then
-    echo "Connect to internet before running Vasuki!"
-    exit 127
-fi
-
-#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
-BK="\e[38;5;166m" #Blink
-GR="\e[32m"
-YW="\e[93m"
-NORMAL='\e[0m'
-RED='\e[31m'
-LIGHT_GREEN='\e[92m'
-LIGHT_YELLOW='\e[93m'
-MAGENTA='\e[35m'
-LIGHT_MAGENTA='\e[96m'
-LIGHT_GREY='\e[90m'
-BOLD='\e[1m'
-UNDERLINE='\e[4m'
-#############################################
-
-#@> VARIABLES
-DM=
-EC=
-RF=
-SL=False
-JO=False
-RO=False
-VR="Vasuki v2.0"
-PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
-ssetFinder complete${NORMAL}"
+    echo -e "${LIGHT_GREEN}AssetFinder complete${NORMAL}"
     subfinder -silent -d $DM -rL $RF -all -t 100 -o $resultDir/tmp/subfinder.list &> /dev/null
     echo -e "${LIGHT_GREEN}SubFinder complete${NORMAL}"
     findomain -t $DM --threads 40 -u $resultDir/tmp/findomain.list &> /dev/null
@@ -409,7 +229,7 @@ SUBD_ACTV(){
 SUBD_SCND(){
     cat $resultDir/tmp/*.list | grep -v "*" | sed '/@\|<BR>\|\_\|*/d' | grep "$DM" | anew -q tmp/domains
 #    xargs -a $resultDir/tmp/domains -P `nproc` -I % bash -c "assetfinder --subs-only % | anew -q $resultDir/tmp/second-sub-domains.list" 2> /dev/null
-#    echo -e "${LIGHT_GREEN}Second-Subdomain Enumeration complete${NORMAL}"
+ #    echo -e "${LIGHT_GREEN}Second-Subdomain Enumeration complete${NORMAL}"
 }
 
 
@@ -487,7 +307,7 @@ masscan_ip(){
 
 IP_SCAN(){
     echo -e ""
-    echo -e "${BOLD}${LIGHT_MAGENTA}${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING IP And PORT SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent &> /dev/null
+    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING IP And PORT SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent &> /dev/null
     find_ips
     find_ipclean
     masscan_ip
@@ -496,7 +316,7 @@ IP_SCAN(){
     echo -e "IP-PORT Scanning completed, total [IP's:$(cat $resultDir/clean_ip.list | wc -l)  Ports:$(cat $resultDir/masscan-port-sorted.txt | wc -l)] found" | notify -silent &> /dev/null
 }
 
-#@> WEB CRAWLING AND FILTERING echo -e "
+#@> WEB CRAWLING AND FILTERING
 WEBC_RAWL(){
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING WEBCRAWLING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent &> /dev/null
     timeout 50m gospider -S $resultDir/lives.txt -d 10 -c 20 -t 50 -K 3 --no-redirect --js -a -w --blacklist ".(eot|jpg|jpeg|gif|css|tif|tiff|png|ttf|otf|woff|woff2|ico|svg|txt)" --include-subs -q -o $resultDir/tmp/gospider 2> /dev/null | anew -q $resultDir/tmp/gospider.list
