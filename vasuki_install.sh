@@ -1,7 +1,7 @@
 #!/bin/bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 3.0
+# Vasuki - version 3.2
 
 #### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
 BK="\e[38;5;166m" #Blink
@@ -42,19 +42,19 @@ folders(){
 
 golanguage(){
     echo -e "${BK}Installing GO-Language${NORMAL}"
-    goversion=$(curl -ks -L https://go.dev/VERSION?m=text)
+    goversion=$(curl -ks -L https://go.dev/VERSION?m=text | grep -o 'go[0-9.]*')
     wget https://go.dev/dl/$goversion.linux-amd64.tar.gz -q
     rm -rf /usr/local/go && tar -C /usr/local -xzf $goversion.linux-amd64.tar.gz
     export PATH=$PATH:/usr/local/go/bin
-    echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.zshrc
+    echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
     echo 'source ~/go/pkg/mod/github.com/tomnomnom/gf@*/gf-completion.bash' >> ~/.bashrc
-    source ~/.zshrc
+    source ~/.bashrc
     cp -r ~/go/pkg/mod/github.com/tomnomnom/gf@*/examples ~/.gf
     if command -v go &> /dev/null; then
         echo -e "\n${GR}GO INSTALLED SUCCESSFULLY${NORMAL}"
     else
         echo -e "\n${YW}THERE'S A PROBLEM IN INSTALLING ${LIGHT_GREEN}GO${NORMAL}, TRY INSTALLING IT MANUALLY${NORMAL}"
-    fi
+    figrep -o 'go[0-9.]*'
     rm -rf $goversion.linux-amd64.tar.gz
 }
 #golanguage
@@ -64,8 +64,8 @@ dependencies(){
     echo -e "${BK}${BOLD}${UNDERLINE}${MAGENTA}INSTALLING ALL DEPENDENCIES${NORMAL}"
     sudo apt update > /dev/null 2>&1
     sudo apt upgrade -y > /dev/null 2>&1
-    pip3 install requests
-    pip3 install ipaddress
+    sudo apt install theHarvester whois whatweb nslookup -y > /dev/null 2>&1
+    sudo pip3 install -r ~/vasuki/requirements.txt > /dev/null 2>&1
     sudo apt install apt-transport-https bsdmainutils build-essential snapd cmake curl dnsutils gcc git jq libdata-hexdump-perl libffi-dev libpcap-dev libssl-dev libxml2-dev libxml2-utils libxslt1-dev lynx medusa nmap procps pv python3 python3-dev python3-pip wget zip unzip zlib1g-dev libpcap-dev screen make gcc -y > /dev/null 2>&1
     sudo apt install chromium > /dev/null 2>&1
     echo "exec -a "$0" "$HERE/chrome" "$@" --userdata-dir --no-sandbox"
@@ -77,7 +77,6 @@ dependencies(){
 
 githubd(){
     echo -e "${BK}CHECKING & DOWNLOADING AND INSTALLING ALL TOOLS FROM GITHUB.${NORMAL}\n"
-
     echo -e "\n- Installing Bhedak"
     cd && pip3 install bhedak > /dev/null 2>&1
     cd && pip3 install tldextract > /dev/null 2>&1
@@ -104,6 +103,15 @@ githubd(){
         echo -e "${RED}FAILED, TRY INSTALLING ANEW MANUALLY${NORMAL}"
     fi
 
+    echo -e "\n- Installing WhatWeb"
+    apt install whatweb > /dev/null 2>&1
+    apt install html2text > /dev/null 2>&1
+    if [ -f ~/usr/bin/whatweb ]; then
+        echo -e "${GR}SUCCESS${NORMAL}"
+    elsegrep -o 'go[0-9.]*'
+        echo -e "${RED}FAILED, TRY INSTALLING WhatWeb MANUALLY${NORMAL}"
+    fi
+
     echo -e "\n- Installing naabu"
     go install github.com/projectdiscovery/naabu/v2/cmd/naabu@latest > /dev/null 2>&1
     if [ -f ~/go/bin/naabu ]; then
@@ -112,7 +120,7 @@ githubd(){
         echo -e "${RED}FAILED, TRY INSTALLING NAABU MANUALLY${NORMAL}"
     fi
 
-    echo -e "\n- Installing gobuster"
+    echo -e "\n- Installing gobuster"go install github.com/OJ/gobuster/v3@lates
     go install github.com/OJ/gobuster/v3@latest > /dev/null 2>&1
     if [ -f ~/go/bin/gobuster ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
@@ -194,7 +202,7 @@ githubd(){
     fi
 
     echo -e "\n- Installing Gxss"
-    go install github.com/KathanP19/Gxss@latestt > /dev/null 2>&1
+    go install github.com/KathanP19/Gxss@latest > /dev/null 2>&1
     if [ -f ~/go/bin/Gxss ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -285,7 +293,7 @@ githubd(){
     fi
 
     echo -e "\n- Installing amass"
-    go install -v github.com/owasp-amass/amass/v3/...@master > /dev/null 2>&1
+    go install -v github.com/owasp-amass/amass/v4/...@master > /dev/null 2>&1
     if [ -f ~/go/bin/amass ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -294,8 +302,8 @@ githubd(){
 
     echo -e "\n- Installing MASSDNS"
     git clone https://github.com/blechschmidt/massdns.git -q ~/vasuki/Massdns
-    cd ~/vasuki/Massdns && sudo make && sudo make install > /dev/null 2>&1
-    cp ~/vasuki/Massdns/bin/massdns /bin > /dev/null 2>&1
+    cd ~/vasuki/Massdns && sudo make && sudo make install &> /dev/null
+    cp ~/vasuki/Massdns/bin/massdns /bin
     if [ -f /bin/massdns ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -304,8 +312,9 @@ githubd(){
 
     echo -e "\n- Installing MASSCAN"
     git clone https://github.com/robertdavidgraham/masscan -q ~/vasuki/Masscan
-    cd ~/vasuki/Masscan && sudo make && sudo make install > /dev/null 2>&1
-    cp ~/vasuki/Masscan/bin/masscan /bin > /dev/null 2>&1
+    git clone https://github.com/initstring/cloud_enum -q ~/vasuki/CloudEnum &> /dev/null
+    cd ~/vasuki/Masscan && sudo make && sudo make install &> /dev/null
+    cp ~/vasuki/Masscan/bin/masscan /bin &> /dev/null
     if [ -f /bin/masscan ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -329,11 +338,11 @@ wordlistsd(){
     git clone https://github.com/vortexau/dnsvalidator.git
     cd dnsvalidator
     python3 setup.py install
-    echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.zshrc
-#    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.zshrc
+    echo "alias resolvers='dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o ~/resolvers.txt && sort -R ~/resolvers.txt | tail -n 50 > ~/50resolvers.txt'" >> ~/.bashrc
+#    echo "alias vasuki='~/vasuki/./vasuki'" >> ~/.bashrc
     cd ~/vasuki/wordlists/
     cp ~/vasuki/vasuki /usr/bin/
-    source ~/.zshrc
+    source ~/.bashrc
 
     wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/deepmagic.com-prefixes-top50000.txt -O subdomains.txt
     git clone https://github.com/scipag/vulscan scipag_vulscan
@@ -352,19 +361,23 @@ wordlistsd(){
     if [ -s resolvers.txt ]; then
         echo -e "${GR}SUCCESS${RT}"
     else
+    echo -e "\n- Installing nuclei"
         echo -e "${YW}FAILED${RT}"
     fi
  
     echo -e "\n- Downloading fuzz wordlists"
     wget -q https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/fuzz.txt -O fuzz.txt
+    wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/combined_directories.txt
+    wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/dirsearch.txt
     if [ -s fuzz.txt ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
-        source ~/.zshrc
+        source ~/.bashrc
     else
         echo -e "${RED}FAILED, TRY INSTALLING FUZZ-LIST MANUALLY${NORMAL}"
     fi
 
-    source ~/.zshrc
+    source ~/.bashrc
+    echo -e "\n- Installing nuclei"
     resolvers
     if [ -s ~/50resolvers.txt ]; then
         echo -e "${GR}SUCCESS. Use ${BOLD}${LIGHT_YELLOW}resolvers${NORMAL}${GR}to generate resolver file at root directory${NORMAL}"
