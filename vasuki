@@ -1,6 +1,210 @@
 #!/usr/bin/env bash
 # coded by CyberZest
 # inspired by Asheem Shrey
+# Vasuki - version 3.2
+
+#@> CHECK CONNECTION
+wget -q --spider http://google.com
+if [ $? -ne 0 ];then
+    echo "Connect to internet before running Vasuki!"
+    exit 127
+fi
+
+#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+BK="\e[38;5;166m" #Blink
+GR="\e[32m"
+YW="\e[93m"
+NORMAL='\e[0m'
+RED='\e[31m'
+LIGHT_GREEN='\e[92m'
+LIGHT_YELLOW='\e[93m'
+MAGENTA='\e[35m'
+LIGHT_MAGENTA='\e[96m'
+LIGHT_GREY='\e[90m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+#############################################
+
+#@> VARIABLES
+DM=
+EC=
+RF=
+DMName="https://"$DM
+company=$(echo $DM | awk -F[.] '{print $1}')
+SL=False
+JO=False
+RO=False
+VR="Vasuki v3.0"
+PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
+
+
+#@> PRINT USAGE
+PRINT_USAGE(){
+    echo -e ""
+    echo -e "${LIGHT_YELLOW}
+\t\t██╗░░░██╗░█████╗░░██████╗██╗░░░██╗██╗░░██╗██╗
+\t\t██║░░░██║██╔══██╗██╔════╝██║░░░██║██║░██╔╝██║
+\t\t╚██╗░██╔╝███████║╚█████╗░██║░░░██║█████═╝░██║
+\t\t░╚████╔╝░██╔══██║░╚═══██╗██║░░░██║██╔═██╗░██║
+\t\t░░╚██╔╝░░██║░░██║██████╔╝╚██████╔╝██║░╚██╗██║
+\t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
+\t\t					v 3.0
+${NORMAL}"
+    echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissanc#!/usr/bin/env bash
+# coded by CyberZest
+# inspired by Asheem Shrey
+# Vasuki - version 2.0
+
+#@> CHECK CONNECTION
+wget -q --spider http://google.com
+if [ $? -ne 0 ];then
+    echo "Connect to internet before running Vasuki!"
+    exit 127
+fi
+
+#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+BK="\e[38;5;166m" #Blink
+GR="\e[32m"
+YW="\e[93m"
+NORMAL='\e[0m'
+RED='\e[31m'
+LIGHT_GREEN='\e[92m'
+LIGHT_YELLOW='\e[93m'
+MAGENTA='\e[35m'
+LIGHT_MAGENTA='\e[96m'
+LIGHT_GREY='\e[90m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+#############################################
+
+#@> VARIABLES
+DM=
+EC=
+RF=
+SL=False
+JO=False
+RO=False
+VR="Vasuki v2.0"
+PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
+e Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
+    echo -e ""
+    echo -e "Example Usage:"
+    echo -e "vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s]"
+    echo -e ""
+    echo -e "Flags:"
+    echo -e "   -d, --domain             ${BK}string${NORMAL}       Add your target                         -d target.tld"
+    echo -e "   -x, --exclude            ${BK}string${NORMAL}       Exclude out of scope domains            -x ~/dommains.list"
+    echo -e "   -r, --resolver           ${BK}string${NORMAL}       Resolver Name                           -r 8.8.8.8, 8.8.4.4, 1.1.1.1"
+    echo -e "   -rF, --resolvers         ${BK}string${NORMAL}       Resolver File List                      -rF ~/resolver.txt"
+    echo -e ""
+    echo -e "${BOLD}${LIGHT_MAGENTA}Optional Flags: ${NORMAL}"
+    echo -e "   -s, --silent      Hide output in the terminal             ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
+    echo -e "   -j, --json        Store output in a single json file      ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
+    echo -e "   -v, --version     Print current version of vasuki"
+    exit 0
+}
+
+#@> ARGUMENTS
+while [ -n "$1" ]; do
+    case $1 in
+            -d|--domain)
+                DM=$2
+                shift ;;
+
+            -rF|--resolvers)
+                RF=$2
+                shift ;;
+
+            -r|--resolver)
+                RF=$2
+                shift ;;
+
+            -h|--help)
+                PRINT_USAGE
+                shift ;;
+
+            -j|--json)
+                JO='true'
+                ;;
+
+            -s|--silent)
+                SL='true'
+                ;;
+
+            -x|--exclude)
+                EC=$2
+                shift ;;
+
+            -v|--version)
+                echo -e "$VR"
+                exit 0 ;;
+
+            *)
+                PRINT_USAGE
+    esac
+    shift
+done
+
+
+#@> INITIAL CONFIGS
+if [ -z "$DM" ]; then
+    echo -e "\n${BOLD}${LIGHT_MAGENTA}ERROR${NORMAL} - #!/usr/bin/env bash
+# coded by CyberZest
+# inspired by Asheem Shrey
+# Vasuki - version 2.0
+
+#@> CHECK CONNECTION
+wget -q --spider http://google.com
+if [ $? -ne 0 ];then
+    echo "Connect to internet before running Vasuki!"
+    exit 127
+fi
+
+#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+BK="\e[38;5;166m" #Blink
+GR="\e[32m"
+YW="\e[93m"
+NORMAL='\e[0m'
+RED='\e[31m'
+LIGHT_GREEN='\e[92m'
+LIGHT_YELLOW='\e[93m'
+MAGENTA='\e[35m'
+LIGHT_MAGENTA='\e[96m'
+LIGHT_GREY='\e[90m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+#############################################
+
+#@> VARIABLES
+DM=
+EC=
+RF=
+SL=False
+JO=False
+RO=False
+VR="Vasuki v2.0"
+PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
+TARGET NOT SUPPLIED."
+    PRINT_USAGE
+fi
+
+if [ "$RO" == "true" ]; then
+    JO='true'
+fi
+
+#@> DOCKER
+if [ -z "$CHROME_BIN" ]; then
+    CHROME_BIN="/etc/chromium-browser/default"
+fi
+
+#@> EXIT FUNCTION
+trap ctrl_c INT
+ctrl_c(){
+    echo -e ""
+    echo -e "${YW} [!] ${NORMAL} KEYBOARD INTERRUPTION, ${RED}EXITING VASUKI${NORMAL}..."
+    exit 127#!/usr/bin/env bash
+# coded by CyberZest
+# inspired by Asheem Shrey
 # Vasuki - version 2.0
 
 #@> CHECK CONNECTION
@@ -35,95 +239,6 @@ RO=False
 VR="Vasuki v2.0"
 PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
 
-
-#@> PRINT USAGE
-PRINT_USAGE(){
-    echo -e ""
-    echo -e "${LIGHT_YELLOW}
-\t\t██╗░░░██╗░█████╗░░██████╗██╗░░░██╗██╗░░██╗██╗
-\t\t██║░░░██║██╔══██╗██╔════╝██║░░░██║██║░██╔╝██║
-\t\t╚██╗░██╔╝███████║╚█████╗░██║░░░██║█████═╝░██║
-\t\t░╚████╔╝░██╔══██║░╚═══██╗██║░░░██║██╔═██╗░██║
-\t\t░░╚██╔╝░░██║░░██║██████╔╝╚██████╔╝██║░╚██╗██║
-\t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
-${NORMAL}"
-    echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissance Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
-    echo -e ""
-    echo -e "Example Usage:"
-    echo -e "vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s]"
-    echo -e ""
-    echo -e "Flags:"
-    echo -e "   -d, --domain             ${BK}string${NORMAL}       Add your target                         -d target.tld"
-    echo -e "   -x, --exclude            ${BK}string${NORMAL}       Exclude out of scope domains            -x ~/dommains.list"
-    echo -e "   -r, --resolver           ${BK}string${NORMAL}       Resolver Name                           -r 8.8.8.8, 8.8.4.4, 10.10.10.10"
-    echo -e "   -rF, --resolvers         ${BK}string${NORMAL}       Resolver File List                      -rF ~/resolver.txt"
-    echo -e ""
-    echo -e "${BOLD}${LIGHT_MAGENTA}Optional Flags: ${NORMAL}"
-    echo -e "   -s, --silent      Hide output in the terminal             ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
-    echo -e "   -j, --json        Store output in a single json file      ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
-    echo -e "   -v, --version     Print current version of vasuki"
-    exit 0
-}
-
-#@> ARGUMENTS
-while [ -n "$1" ]; do
-    case $1 in
-            -d|--domain)
-                DM=$2
-                shift ;;
-
-            -rF|--resolvers)
-                RF=$2
-                shift ;;
-
-            -h|--help)
-                PRINT_USAGE
-                shift ;;
-
-            -j|--json)
-                JO='true'
-                ;;
-
-            -s|--silent)
-                SL='true'
-                ;;
-
-            -x|--exclude)
-                EC=$2
-                shift ;;
-
-            -v|--version)
-                echo -e "$VR"
-                exit 0 ;;
-
-            *)
-                PRINT_USAGE
-    esac
-    shift
-done
-
-
-#@> INITIAL CONFIGS
-if [ -z "$DM" ]; then
-    echo -e "\n${BOLD}${LIGHT_MAGENTA}ERROR${NORMAL} - TARGET NOT SUPPLIED."
-    PRINT_USAGE
-fi
-
-if [ "$RO" == "true" ]; then
-    JO='true'
-fi
-
-#@> DOCKER
-if [ -z "$CHROME_BIN" ]; then
-    CHROME_BIN="/snap/bin/chromium"
-fi
-
-#@> EXIT FUNCTION
-trap ctrl_c INT
-ctrl_c(){
-    echo -e ""
-    echo -e "${YW} [!] ${NORMAL} KEYBOARD INTERRUPTION, ${RED}EXITING VASUKI${NORMAL}..."
-    exit 127
 }
 
 #@> BANNER
@@ -137,15 +252,18 @@ INFOM(){
 \t\t░╚████╔╝░██╔══██║░╚═══██╗██║░░░██║██╔═██╗░██║
 \t\t░░╚██╔╝░░██║░░██║██████╔╝╚██████╔╝██║░╚██╗██║
 \t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
+\t\t					v 3.0
 ${NORMAL}"
     echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissance Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
     dt=$(date +%F.%H.%M)
     resultDir=~/vasuki_results/$DM/$dt
-    echo -e $resultDir
     mkdir -p $resultDir
     cd $resultDir
     ReconStartTime=$(date +%H.%M.%S)
     echo -e ""
+    download_speed=$(speedtest-cli | grep -i "load:")
+    echo -e "${NORMAL}${LIGHT_YELLOW}Your Internet Speed is..${RED}${BOLD}$download_speed ${NORMAL}"
+    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e "HIGHER THE ${BOLD}${LIGHT_MAGENTA}INTERNET SPEED${NORMAL} FASTER ${YW}THE RESULT${NORMAL}${RED} OUTPUT${NORMAL}"
     echo -e "${BOLD}${LIGHT_MAGENTA}DOMAIN> ${NORMAL}" | tr -d "\n"; echo -e " $DM" | pv -qL 6
     echo -e "${BOLD}${LIGHT_MAGENTA}OUTPUT> ${NORMAL}" | tr -d "\n"; echo -e " $(pwd | sed 's/\// < /g' | cut -c 4-)" | pv -qL 6
     echo -e "${BOLD}[VASUKI]${NORMAL} - Scanning started on $DM at $ReconStartTime" | notify -silent
@@ -153,44 +271,152 @@ ${NORMAL}"
 
 #@> MAKE FOLDERS
 MAKDR(){
-    echo -e "Results in : ${BOLD}$resultDir${NORMAL}"
+#    echo -e "Results in : ${BOLD}$resultDir${NORMAL}"
     mkdir -p $resultDir/tmp
-    mkdir -p $resultDir/.gf
-    mkdir -p $resultDir/dirs
+    mkdir -p $resultDir/gf
     mkdir -p $resultDir/vulns
-    mkdir -p $resultDir/nmap
+#    mkdir -p $resultDir/footprint
     [ "$JO" == "False" ] || mkdir -p $resultDir/.json
+}
+
+#@> FOOTPRINTING ENUMERATION
+FOOT_PRINT(){
+    echo -e ""
+    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING FOOTPRINTING SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
+    echo -e "${NORMAL}${MAGENTA}Searching domain name details, contact details of domain owner, domain name servers, netRange, domain dates, expiry records, records last updated...${NORMAL}"
+    whois $DM | grep 'Domain\|Registry\|Registrar\|Updated\|Creation\|Registrant\|Name Server\|DNSSEC:\|Status\|Whois Server\|Admin\|Tech' | grep -v 'the Data in VeriSign Global Registry' | anew -q $resultDir/footprint/whois.list 2> /dev/null
+    echo -e "${NORMAL}${LIGHT_YELLOW}Searching DNS Queries...${NORMAL}"
+    nslookup $DM | anew -q $resultDir/footprint/nslookup.list
+    echo -e "${NORMAL}${LIGHT_YELLOW}Searching horizontal domains...${NORMAL}"
+    email=$(whois $DM | grep "Registrant Email" | egrep -ho "[[:graph:]]+@[[:graph:]]+")
+    curl -s -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36" "https://viewdns.info/reversewhois/?q=$email" | html2text | grep -Po "[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" | tail -n +4  | head -n -1 | anew -q $resultDir/footprint/email1.list
+    echo -e "${NORMAL}${LIGHT_YELLOW}Searching platform, type of script, google analytics, web server platform, IP address, country, server headers, cookies...${NORMAL}"
+    whatweb $DM | anew -q $resultDir/footprint/whatweb.list
+    echo -e "${NORMAL}${LIGHT_YELLOW}Searching emails, subdomains, hosts, employee names...${NORMAL}"
+    theHarvester -d $DM -b all -l 500 -f $resultDir/footprint/theharvester.html > $resultDir/footprint/theharvester.txt
+    echo -e "${NORMAL}${LIGHT_YELLOW}Users found: ${NORMAL}"
+    cat $resultDir/footprint/theharvester.txt | awk '/U#!/usr/bin/env bash
+# coded by CyberZest
+# inspired by Asheem Shrey
+# Vasuki - version 2.0
+
+#@> CHECK CONNECTION
+wget -q --spider http://google.com
+if [ $? -ne 0 ];then
+    echo "Connect to internet before running Vasuki!"
+    exit 127
+fi
+
+#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+BK="\e[38;5;166m" #Blink
+GR="\e[32m"
+YW="\e[93m"
+NORMAL='\e[0m'
+RED='\e[31m'
+LIGHT_GREEN='\e[92m'
+LIGHT_YELLOW='\e[93m'
+MAGENTA='\e[35m'
+LIGHT_MAGENTA='\e[96m'
+LIGHT_GREY='\e[90m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+#############################################
+
+#@> VARIABLES
+DM=
+EC=
+RF=
+SL=False
+JO=False
+RO=False
+VR="Vasuki v2.0"
+PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
+sers/,/IPs/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/users.list &> /dev/null
+    cat $resultDir/footprint/theharvester.txt | awk '/IPs/,/Emails/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/ips.list &> /dev/null
+    cat $resultDir/footprint/theharvester.txt | awk '/Emails/,/Hosts/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/email2.list &> /dev/null
+    cat $resultDir/footprint/theharvester.txt | awk '/Hosts/,/Trello/' | sed -e '1,2d' | head -n -2 | anew -q $resultDir/footprint/hosts.list &> /dev/null
+    cat $resultDir/footprint/email1.list $resultDir/footprint/email2.list | sort -u | anew -q $resultDir/footprint/emails.list && rm $resultDir/footprint/email1.list && rm $resultDir/footprint/email2.list &> /dev/null
+    echo -e "${NORMAL}${LIGHT_YELLOW}Searching public resources in AWS, Azure, and Google Cloud....${NORMAL}"
+    key=$(echo $DM | sed s/".com"//)
+    python3 ~/vasuki/CloudEnum/cloud_enum.py -k $key -k $DM -t 25 -b /root/vasuki/CloudEnum/enum_tools/fuzz.txt | anew -q $resultDir/footprint/cloud.txt
+    [ "$SL" == "False" ] && cat $resultDir/footprint/users.list &> /dev/null
+    echo -e "Footprinting completed, total [Users:$(cat $resultDir/footprint/users.list | wc -l) Emails:$(cat $resultDir/footprint/emails.list | wc -l)] found" | notify -silent &> /dev/null
 }
 
 #@> SUBDOMAIN ENUMERATION
 SUBD_PASV(){
     curl -s "https://crt.sh/?q=%25.$DM&output=json" | jq -r '.[].name_value' 2>/dev/null | sed 's/\*\.//g' | sort -u | grep -o "\w.*$DM" | anew -q $resultDir/tmp/cert.list
     curl -s "https://api.hackertarget.com/hostsearch/?q=$DM" | grep -o "\w.*$DM" | anew -q $resultDir/tmp/htarget.list
-    curl -s "https://riddler.io/search/exportcsv?q=pld:$DM" | grep -Po "(([\w.-]*)\.([\w]*)\.([A-z]))\w+" | grep -o "\w.*$DM" | anew -q $resultDir/tmp/riddler.list
-    amass enum -passive -d $DM -rf $RF -o $resultDir/tmp/amass.list &> /dev/null
+#    curl -s "https://riddler.io/search/exportcsv?q=pld:$DM" | grep -Po "(([\w.-]*)\.([\w]*)\.([A-z]))\w+" | grep -o "\w.*$DM" | anew -q $resultDir/tmp/riddler.list
+    echo -e "${LIGHT_GREEN}Cert, HackerTarget, complete${NORMAL}"
+#    amass enum -d $DM -rf $RF -nocolor &> /dev/null && amass db -names -d $DM > $resultDir/tmp/amass.list 
+#    echo -e "${LIGHT_GREEN}AMASS complete${NORMAL}"
     assetfinder --subs-only $DM | anew -q $resultDir/tmp/assetfinder.list &> /dev/null
+    echo -e "${LIGHT_GREEN}A#!/usr/bin/env bash
+# coded by CyberZest
+# inspired by Asheem Shrey
+# Vasuki - version 2.0
+
+#@> CHECK CONNECTION
+wget -q --spider http://google.com
+if [ $? -ne 0 ];then
+    echo "Connect to internet before running Vasuki!"
+    exit 127
+fi
+
+#### COLORS #### ( Taken from : https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+BK="\e[38;5;166m" #Blink
+GR="\e[32m"
+YW="\e[93m"
+NORMAL='\e[0m'
+RED='\e[31m'
+LIGHT_GREEN='\e[92m'
+LIGHT_YELLOW='\e[93m'
+MAGENTA='\e[35m'
+LIGHT_MAGENTA='\e[96m'
+LIGHT_GREY='\e[90m'
+BOLD='\e[1m'
+UNDERLINE='\e[4m'
+#############################################
+
+#@> VARIABLES
+DM=
+EC=
+RF=
+SL=False
+JO=False
+RO=False
+VR="Vasuki v2.0"
+PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
+ssetFinder complete${NORMAL}"
     subfinder -silent -d $DM -rL $RF -all -t 100 -o $resultDir/tmp/subfinder.list &> /dev/null
+    echo -e "${LIGHT_GREEN}SubFinder complete${NORMAL}"
     findomain -t $DM --threads 40 -u $resultDir/tmp/findomain.list &> /dev/null
+    echo -e "${LIGHT_GREEN}Findomain complete${NORMAL}"
 }
 
 SUBD_ACTV(){
-    ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w ~/vasuki/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json 2> /dev/null &> /dev/null
-    gobuster dns -d $DM --no-error -z -q -t 100 -w ~/vasuki/wordlists/subdomains.txt 2> /dev/null | sed 's/Found: //g' | anew -q $resultDir/tmp/gobuster.list
-    amass enum -active -brute -w ~/vasuki/wordlists/subdomains.txt -d $DM -rf $RF -o $resultDir/tmp/amassact.list &> /dev/null
-    cat $resultDir/tmp/ffuf.json 2> /dev/null | jq -r '.results[] | .host' 2> /dev/null | anew -q $resultDir/tmp/ffuf.list && rm -rf $resultDir/tmp/ffuf.json
+#    ffuf -u http://FUZZ.$DM/ -t 100 -p '1.0-2.0' -w ~/vasuki/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200 -r -o $resultDir/tmp/ffuf.json 2> /dev/null &> /dev/null
+#    echo -e "${LIGHT_GREEN}FFuF complete${NORMAL}"
+    gobuster dns -d $DM --no-error --no-color -z -q -t 50 -w ~/vasuki/wordlists/subdomains.txt 2> /dev/null | sed 's/Found: //g' | anew -q $resultDir/tmp/gobuster.list
+    echo -e "${LIGHT_GREEN}GoBuster complete${NORMAL}"
+#    amass enum -active -brute -w ~/vasuki/wordlists/subdomains.txt -d $DM -rf $RF -o $resultDir/tmp/amassact.list &> /dev/null
+#    echo -e "${LIGHT_GREEN}AMASS-Active Scan complete${NORMAL}"
+#    cat $resultDir/tmp/ffuf.json 2> /dev/null | jq -r '.results[] | .host' 2> /dev/null | anew -q $resultDir/tmp/ffuf.list && rm -rf $resultDir/tmp/ffuf.json
 }
 
 
 SUBD_SCND(){
     cat $resultDir/tmp/*.list | grep -v "*" | sed '/@\|<BR>\|\_\|*/d' | grep "$DM" | anew -q tmp/domains
-    xargs -a $resultDir/tmp/domains -P 50 -I % bash -c "assetfinder --subs-only % | anew -q $resultDir/tmp/seconddomains.list" 2> /dev/null | anew -q $resultDir/tmp/seconddomains.list
+#    xargs -a $resultDir/tmp/domains -P `nproc` -I % bash -c "assetfinder --subs-only % | anew -q $resultDir/tmp/second-sub-domains.list" 2> /dev/null
+#    echo -e "${LIGHT_GREEN}Second-Subdomain Enumeration complete${NORMAL}"
 }
-    
-    
+
+
 SUBD_CHCK(){
     #@> FILTERING DOMAINS    
     if [ -f "$EC" ]; then
-        cat tmp/domains | grep -vf $EC | dnsx -a -aaaa -cname -ns -ptr -mx -soa -retry 3 -r $RF -t 10 -silent | anew -q $resultDir/subdomains.txt
+        cat tmp/domains tmp/second-sub-domains.list | grep -vf $EC | dnsx -a -aaaa -cname -ns -ptr -mx -soa -retry 3 -r $RF -t 10 -silent | anew -q $resultDir/subdomains.txt
     else
         cat tmp/domains | dnsx -a -aaaa -cname -ns -ptr -mx -soa -retry 3 -r $RF -t 10 -silent | anew -q $resultDir/subdomains.txt
     fi
@@ -198,7 +424,8 @@ SUBD_CHCK(){
     #@> WEB PROBING AND SCREENSHOT
     naabu -retries 3 -r $RF -l $resultDir/subdomains.txt -p "$PR" -silent -no-color 2> /dev/null | anew -q $resultDir/ports.txt
     cat $resultDir/ports.txt | httprobe -prefer-https | anew -q $resultDir/lives.txt
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | aquatone -chrome-path $CHROME_BIN -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
+    xargs -a $resultDir/subdomains.txt -P `nproc` -I % bash -c "dig %" | anew -q $resultDir/dig-CNAME.txt
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "echo % | aquatone -out $resultDir/screenshots/ -threads 10 -silent" 2> /dev/null &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/lives.txt | python3 -c "import sys; import json; print (json.dumps({'liveurls':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/liveurls.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/subdomains.txt | python3 -c "import sys; import json; print (json.dumps({'subdomains':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/subdomains.json &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/ports.txt | python3 -c "import sys; import json; print (json.dumps({'ports':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/ports.json &> /dev/null
@@ -211,8 +438,9 @@ SUBD_SCAN(){
     SUBD_ACTV
     SUBD_SCND
     SUBD_CHCK
+    #cat esg-hilton-dirsearch.txt | grep "https://esg.hilton.com/" | awk '{print($3)}' for dirsearch-result
     [ "$SL" == "False" ] && cat $resultDir/lives.txt 2> /dev/null
-    echo -e "Subdomain enumeration completed, total [Subdomains:$(cat $resultDir/subdomains.txt | wc -l)  Activeurls:$(cat $resultDir/lives.txt | wc -l)] found" | notify -silent &> /dev/null
+    echo -e "Subdomain enumeration completed, total [Subdomains:$(cat $resultDir/subdomains.txt | wc -l)  Activeurls:$(cat $resultDir/lives.txt | wc -l)] found" | notify &> /dev/null
 }
 
 #@> IP SCAN AND FILTERING
@@ -227,78 +455,88 @@ find_ips(){
 
 find_ipclean(){
     echo -e "${LIGHT_YELLOW}Cleaning ip for masscan, obtained from massdns${NORMAL}"
-    python3 ~/vasuki/clean-ip.py $resultDir/ips.txt $resultDir/clean_ip.txt
+    cleantemp=cleanip.tmp
+    python3 ~/vasuki/clean-ip.py $resultDir/ips.txt $cleantemp
+    sort -u $cleantemp >> $resultDir/clean_ip.list
+    rm $cleantemp
 }
-
+cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\">/><svg/onload=confirm(document.domain)>" 2> /dev/null | anew -q $resultDir/tmp/xss.txt
 masscan_ip(){
     echo -e "${LIGHT_YELLOW}Now doing masscan on all the obtained ip addreses from massdns${NORMAL}"
-    masscan -iL $resultDir/clean_ip.txt -p1-65535 --rate=10000 > $resultDir/masscan.txt    
-    sed -i -e "/#/d " -e "/^$/* " $resultDir/masscan.txt
-    cut -d" " -f4,6 $resultDir/masscan.txt | awk '{print($2","$1)}' | sort -V > $resultDir/masscan-sorted.txt
+    masscan -iL $resultDir/clean_ip.list -p1-65535 --rate=10000 > $resultDir/masscan-port.txt
+    sed -i -e "/#/d " -e "/^$/* " $resultDir/masscan-port.txt
+    cut -d" " -f4,6 $resultDir/masscan-port.txt | awk '{print($2","$1)}' | sort -V > $resultDir/masscan-port-sorted.txt
     echo -e "${LIGHT_GREEN}Masscan complete${NORMAL}"
-    nmapFile2=$resultDir/nmap-feedable.txt    
-    sort -k1 $resultDir/masscan-sorted.txt | awk -F, '{printf $1" "; print $2}' | awk '{if (a!=$1) {if (a) print ""}; printf $0","; a=$1}' | sed 's/,$//' > $resultDir/nmap-sorted.txt
-    tr -d '/tcp' < $resultDir/nmap-sorted.txt > $nmapFile2
-    rm $resultDir/nmap-sorted.txt
+#    nmapFile2=$resultDir/nmap-feedable.txt
+#    sort -k1 $resultDir/masscan-port-sorted.txt | awk -F, '{echo $1" "; print $2}' | awk '{if (a!=$1) {if (a) print ""}; echo $0","; a=$1}' | sed 's/,$//' > $resultDir/nmap-sorted.txt
+#    tr -d '/tcp' < $resultDir/nmap-sorted.txt > $nmapFile2
+#    rm $resultDir/nmap-sorted.txt
 }
 
-nmap_run(){
-    filePath=$nmapFile2
-    while read -r line
-    do
-        IP=`echo $line | cut -d" " -f1`
-        ports=`echo $line | cut -d" " -f2`
-        echo "Scanning $IP : $ports : $3"
-        nmap -Pn -n -v -A -sV --script=vulscan.nse $IP -p$ports -oA $resultDir/nmap/$IP.vulscan | tee -a $resultDir/nmap/nmap-vulscan-log.txt
-        nmap -Pn -n -v -A -sV --script=nmap-vulners/vulners.nse $IP -p$ports -oA $resultDir/nmap/$IP.vulners | tee -a $resultDir/nmap/nmap-vulners-log.txt
-    done > $resultDir/nmap.finished
-}
+#nmap_run(){
+#    filePath=$nmapFile2
+#    mkdir -p $resultDir/nmap
+#    while read -r line
+#    do
+#        IP=`echo $line | cut -d" " -f1`
+#        ports=`echo $line | cut -d" " -f2`
+#        echo "Scanning $IP : $ports : $3"
+#        nmap -Pn -n -v -A -sV --script=vulscan.nse $IP -p$ports -oA $resultDir/nmap/$IP.vulscan | tee -a $resultDir/nmap/nmap-vulscan-log.txt
+#    done > $resultDir/nmap.finished
+#}
 
 IP_SCAN(){
     echo -e ""
-    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING IP And PORT SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
+    echo -e "${BOLD}${LIGHT_MAGENTA}${NORMAL}" | tr -d '\n' | pv -qL 4; echo -e " STARTING IP And PORT SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent &> /dev/null
     find_ips
     find_ipclean
     masscan_ip
-    nmap_run
-    [ "$SL" == "False" ] && cat $nmapFile2 2> /dev/null
-    echo -e "IP-PORT Scanning completed, total [IP's:$(cat $resultDir/clean_ip.txt | wc -l)  Ports:$(cat $resultDir/masscan-sorted.txt | wc -l)] found" | notify -silent &> /dev/null
+#    nmap_run
+#    [ "$SL" == "False" ] && cat $nmapFile2 2> /dev/null
+    echo -e "IP-PORT Scanning completed, total [IP's:$(cat $resultDir/clean_ip.list | wc -l)  Ports:$(cat $resultDir/masscan-port-sorted.txt | wc -l)] found" | notify -silent &> /dev/null
 }
 
-
-#@> WEB CRAWLING AND FILTERING
+#@> WEB CRAWLING AND FILTERING echo -e "
 WEBC_RAWL(){
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING WEBCRAWLING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent &> /dev/null
     timeout 50m gospider -S $resultDir/lives.txt -d 10 -c 20 -t 50 -K 3 --no-redirect --js -a -w --blacklist ".(eot|jpg|jpeg|gif|css|tif|tiff|png|ttf|otf|woff|woff2|ico|svg|txt)" --include-subs -q -o $resultDir/tmp/gospider 2> /dev/null | anew -q $resultDir/tmp/gospider.list
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | waybackurls" 2> /dev/null | anew -q $resultDir/tmp/waybackurls.list
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "echo % | gau --blacklist eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,svg,txt --threads 50" 2> /dev/null | anew -q $resultDir/tmp/gau.list 2> /dev/null &> /dev/null
+    echo -e "${LIGHT_GREEN}Go-Spider Completed complete${NORMAL}"
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "echo % | waybackurls" 2> /dev/null | anew -q $resultDir/tmp/waybackurls.list
+    echo -e "${LIGHT_GREEN}WayBack-URLs complete${NORMAL}"
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "echo % | gau --blacklist eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,svg,txt --threads 50" 2> /dev/null | anew -q $resultDir/tmp/gau.list 2> /dev/null &> /dev/null
+    echo -e "${LIGHT_GREEN}GAU complete${NORMAL}"
     agnee -d $DM -q -o $resultDir/dorks.txt -p 4 &> /dev/null
     cat $resultDir/tmp/gospider.list $resultDir/tmp/gau.list $resultDir/tmp/waybackurls.list 2> /dev/null | sed '/\[/d' | grep $DM | sort -u | uro | anew -q $resultDir/urls.txt # <-- Filtering duplicate and common endpoints
     [ "$JO" == "False" ] || cat $resultDir/urls.txt | python3 -c "import sys; import json; print (json.dumps({'endpoints':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/urls.json &> /dev/null
 
     #@> FILTERING ENDPOINTS USING PATTERNS
-    gf xss $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/.gf/xss.list
-    gf lfi $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/.gf/lfi.list
-    gf rce $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/.gf/rce.list
-    gf ssrf $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "http://169.254.169.254/latest/meta-data/hostname" 2> /dev/null | anew -q $resultDir/.gf/ssrf.list
-    gf ssti $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/.gf/ssti.list
-    gf sqli $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "(select(0)from(select(sleep(5)))v)" 2> /dev/null | anew -q $resultDir/.gf/sqli.list
-    gf redirect $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "http://www.evil.com/" 2> /dev/null | anew -q $resultDir/.gf/redirect.list
+    echo -e "${LIGHT_GREEN}Filter Endpoints using GF-Patterns complete${NORMAL}"
+    gf xss $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/gf/xss.list
+    gf lfi $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/gf/lfi.list
+    gf rce $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/gf/rce.list
+    gf ssrf $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "http://169.254.169.254/latest/meta-data/hostname" 2> /dev/null | anew -q $resultDir/gf/ssrf.list
+    gf ssti $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "FUZZ" 2> /dev/null | anew -q $resultDir/gf/ssti.list
+    gf sqli $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "(select(0)from(select(sleep(5)))v)" 2> /dev/null | anew -q $resultDir/gf/sqli.list
+    gf redirect $resultDir/urls.txt | sed "s/'\|(\|)//g" | bhedak "http://www.evil.com/" 2> /dev/null | anew -q $resultDir/gf/redirect.list
 
-    xargs -a $resultDir/.gf/xss.list -P 30 -I % bash -c "echo % | kxss" 2> /dev/null | grep "< >\|\"" | awk '{print $2}' | anew -q $resultDir/tmp/xssp.list
-    cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\">/><svg/onload=confirm(document.domain)>" 2> /dev/null | anew -q $resultDir/tmp/xss.txt
-    echo -e "Web Crawling completed, total [URL's:$(cat $resultDir/urls.txt | wc -l)] found" | notify -silent &> /dev/null
+    xargs -a $resultDir/gf/xss.list -P `nproc` -I % bash -c "echo % | gxss" 2> /dev/null | anew -q $resultDir/tmp/xssp.list
+    cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\">/><svg/onload=confirm(document.domain)>" 2> /dev/null | anew -q $resultDir/tmp/xss1.txt
+    cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\"%3E%2F%3E%3Csvg%2Fonload%3Dconfirm(document.domain)>" 2> /dev/null | anew -q $resultDir/tmp/xss2.txt
+    cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\"<BODY ONLOAD=alert(document.domain)>" 2> /dev/null | anew -q $resultDir/tmp/xss3.txt
+    cat $resultDir/tmp/xssp.list 2> /dev/null | bhedak "\"%3CBODY%20onload!%23%24%25%25%26()*~%2B-_.%2C%3A%3B%3F%40%5B%2F%7C%5C%5D%5E%60%3Djavascript%3Aalert(1)%3E" 2> /dev/null | anew -q $resultDir/tmp/xss4.txt
+    cat $resultDir/tmp/xss1.txt $resultDir/tmp/xss2.txt $resultDir/tmp/xss3.txt $resultDir/tmp/xss4.txt | sort -u | uro | anew -q $resultDir/tmp/xss.txt
+    echo -e "Web Crawling completed, total ${LIGHT_GREEN}[URLs:$(cat $resultDir/urls.txt | wc -l)] found${NORMAL}" | notify -silent &> /dev/null
 }
 
 #@> NUCLEI SCAN
 NUCL_SCAN(){
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING NUCLEI VULNERABILITY SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})" | notify -silent
     nuclei -update-templates 2> /dev/null &> /dev/null
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s info" 2> /dev/null | anew -q $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s low" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s medium" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s high" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
-    xargs -a $resultDir/lives.txt -P 50 -I % bash -c "nuclei -target % -nc -s critical" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+#    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "nuclei -target % -nc -s info" 2> /dev/null | anew -q $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+#    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "nuclei -target % -nc -s low" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "nuclei -target % -nc -s medium" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "nuclei -target % -nc -s high" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/lives.txt -P `nproc` -I % bash -c "nuclei -target % -nc -s critical" 2> /dev/null | anew $resultDir/vulns/nuclei.txt | notify -silent &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/nuclei.txt | python3 -c "import sys; import json; print (json.dumps({'nuclei_info':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/nuclei.json &> /dev/null
     [ "$SL" == "False" ] && cat $resultDir/vulns/nuclei.txt
 }
@@ -314,19 +552,19 @@ VULN_SCAN(){
     cat $resultDir/urls.txt | cut -d"?" -f1 | cut -d"=" -f1 | grep -iaE "([^.]+)\.zip$|([^.]+)\.zip\.[0-9]+$|([^.]+)\.zip[0-9]+$|([^.]+)\.zip[a-z][A-Z][0-9]+$|([^.]+)\.zip\.[a-z][A-Z][0-9]+$|([^.]+)\.rar$|([^.]+)\.tar$|([^.]+)\.tar\.gz$|([^.]+)\.tgz$|([^.]+)\.sql$|([^.]+)\.db$|([^.]+)\.sqlite$|([^.]+)\.pgsql\.txt$|([^.]+)\.mysql\.txt$|([^.]+)\.gz$|([^.]+)\.config$|([^.]+)\.log$|([^.]+)\.bak$|([^.]+)\.backup$|([^.]+)\.bkp$|([^.]+)\.crt$|([^.]+)\.dat$|([^.]+)\.eml$|([^.]+)\.java$|([^.]+)\.lst$|([^.]+)\.key$|([^.]+)\.passwd$|([^.]+)\.pl$|([^.]+)\.pwd$|([^.]+)\.mysql-connect$|([^.]+)\.jar$|([^.]+)\.cfg$|([^.]+)\.dir$|([^.]+)\.orig$|([^.]+)\.bz2$|([^.]+)\.old$|([^.]+)\.vbs$|([^.]+)\.img$|([^.]+)\.inf$|([^.]+)\.sh$|([^.]+)\.py$|([^.]+)\.vbproj$|([^.]+)\.mysql-pconnect$|([^.]+)\.war$|([^.]+)\.go$|([^.]+)\.psql$|([^.]+)\.sql\.gz$|([^.]+)\.vb$|([^.]+)\.webinfo$|([^.]+)\.jnlp$|([^.]+)\.cgi$|([^.]+)\$resultDir/tmp$|([^.]+)\.ini$|([^.]+)\.webproj$|([^.]+)\.xsql$|([^.]+)\.raw$|([^.]+)\.inc$|([^.]+)\.lck$|([^.]+)\.nz$|([^.]+)\.rc$|([^.]+)\.html\.gz$|([^.]+)\.gz$|([^.]+)\.env$|([^.]+)\.yml$" | httpx -silent -follow-host-redirects | anew -q $resultDir/vulns/files.txt &> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/files.txt 2> /dev/null | python3 -c "import sys; import json; print (json.dumps({'sensitive':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/files.json &> /dev/null
 
-    xargs -a $resultDir/tmp/xss.txt -P 50 -I % bash -c "curl -s -L -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"<svg/onload=confirm(document.domain)>\" && echo -e \"[POTENTIAL XSS] - % \n \"" 2> /dev/null | grep "POTENTIAL XSS" | anew $resultDir/vulns/xss.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/tmp/xss.txt -P `nproc` -I % bash -c "curl -s -L -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"<svg/onload=confirm(document.domain)>\" && echo -e \"[POTENTIAL XSS] - % \n \"" 2> /dev/null | grep "POTENTIAL XSS" | anew $resultDir/vulns/xss.txt | notify -silent &> /dev/null
     [ "$SL" == "False" ] && cat $resultDir/vulns/xss.txt 2> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/xss.txt 2> /dev/null | python3 -c "import sys; import json; print (json.dumps({'vuln_xss':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/xss.json &> /dev/null
 
-    xargs -a $resultDir/.gf/ssrf.list -P 50 -I % bash -c "curl -ks -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"compute.internal\" && echo -e \"[POTENTIAL SSRF] - % \n \"" 2> /dev/null | grep "POTENTIAL SSRF" | anew $resultDir/vulns/ssrf.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/gf/ssrf.list -P `nproc` -I % bash -c "curl -ks -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"compute.internal\" && echo -e \"[POTENTIAL SSRF] - % \n \"" 2> /dev/null | grep "POTENTIAL SSRF" | anew $resultDir/vulns/ssrf.txt | notify -silent &> /dev/null
     [ "$SL" == "False" ] && cat $resultDir/vulns/ssrf.txt 2> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/ssrf.txt 2> /dev/null | python3 -c "import sys; import json; print (json.dumps({'vuln_ssrf':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/ssrf.json &> /dev/null
 
-    xargs -a $resultDir/.gf/redirect.list -P 50 -I % bash -c "curl -s -iL -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"Evil.Com - We get it...Daily\" && echo -e \"[POTENTIAL REDIRECT] - % \n \"" 2> /dev/null | grep "POTENTIAL REDIRECT" | anew $resultDir/vulns/redirect.txt | notify -silent &> /dev/null
+    xargs -a $resultDir/gf/redirect.list -P `nproc` -I % bash -c "curl -s -iL -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"Evil.Com - We get it...Daily\" && echo -e \"[POTENTIAL REDIRECT] - % \n \"" 2> /dev/null | grep "POTENTIAL REDIRECT" | anew $resultDir/vulns/redirect.txt | notify -silent &> /dev/null
     [ "$SL" == "False" ] && cat $resultDir/vulns/redirect.txt 2> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/redirect.txt 2> /dev/null | python3 -c "import sys; import json; print (json.dumps({'vuln_redirect':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/redirect.json &> /dev/null
 
-    timeout 50m xargs -a $resultDir/.gf/sqli.list -P 50 -I % bash -c "echo % | jeeves --payload-time 5" | grep "Vulnerable To" | anew $resultDir/vulns/sqli.txt | notify -silent 2> /dev/null &> /dev/null
+    timeout 50m xargs -a $resultDir/gf/sqli.list -P `nproc` -I % bash -c "echo % | jeeves --payload-time 5" | grep "Vulnerable To" | anew $resultDir/vulns/sqli.txt | notify -silent 2> /dev/null &> /dev/null
     [ "$SL" == "False" ] && cat $resultDir/vulns/sqli.txt 2> /dev/null
     [ "$JO" == "False" ] || cat $resultDir/vulns/sqli.txt 2> /dev/null | python3 -c "import sys; import json; print (json.dumps({'vuln_redirect':list(sys.stdin)}))" | sed 's/\\n//g' | tee $resultDir/.json/redirect.json &> /dev/null
 
@@ -340,34 +578,35 @@ VULN_SCAN(){
 #@> DIRECTORY FUZZING
 FUZZ_DIRS(){
     echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING DIRECTORY FUZZING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
-    for target in $(cat $resultDir/lives.txt); do
-        fuzzout=$(echo $target | awk -F// '{print $NF}' | sed -E 's/[\.|:]+/_/g')
-        ffuf -u $target/FUZZ -ac -t 100 -mc 200 -sf -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -w ~/vasuki/wordlists/fuzz.txt -p '0.6-1.2' -e .html,.json,.php,.asp,.aspx,.log,.sql,.txt,.asp,.jsp,.bak,~,.db -maxtime 900 -o $resultDir/dirs/$fuzzout.json -s 2> /dev/null &> /dev/null
-        cat $resultDir/dirs/$fuzzout.json | jq -r '.results[] | .status, .length, .url' 2> /dev/null | xargs -n3 | anew -q $resultDir/dirs/$fuzzout.txt
-        rm -rf $resultDir/dirs/$fuzzout.json
+#    for target in $(cat $resultDir/lives.txt); do
+#        fuzzout=$(echo $target | awk -F// '{print $NF}' | sed -E 's/[\.|:]+/_/g')
+#        ffuf -u $target/FUZZ -ac -t 100 -mc 200 -sf -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -w ~/vasuki/wordlists/fuzz.txt -p '0.6-1.2' -e .html,.json,.php,.asp,.aspx,.log,.sql,.txt,.asp,.jsp,.bak,~,.db -maxtime 900 -o $resultDir/vulns/$fuzzout.json -s 2> /dev/null &> /dev/null
+#        cat $resultDir/vulns/$fuzzout.json | jq -r '.results[] | .status, .length, .url' 2> /dev/null | xargs -n3 | anew -q $resultDir/vulns/$fuzzout.txt
+#        rm -rf $resultDir/vulns/$fuzzout.json
+#    done
+    for target2 in $(cat $resultDir/lives.txt); do
+        echo "Scanning $target2"
+            dirsearch -u $target2 -w /root/vasuki/wordlists/dirsearch.txt -t 100 -R 5 -i 200 --no-color --full-url --random-agent -o $resultDir/vulns/$target2.txt 2> /dev/null &> /dev/null
     done
 }
 
 #@> SENDING FINAL NOTIFICATION
 SEND_NOTE(){
     echo -e ""
-    echo -e "${BOLD}${LIGHT_MAGENTA} SCANNING COMPLETED SUCCESSFULLY ON $DM ${NORMAL}"
-    echo -e "[VASUKI] - Scanning completed on $DM at $(date)" | notify -silent
+    echo -e "${BOLD}${LIGHT_MAGENTA} [VASUKI] - Scanning completed on $DM at $(date) ${NORMAL}" | notify -silent
     ReconEndTime=$(date +%H.%M.%S)
-    link=http://$(curl ifconfig.co)/$domain.zip
+    link=http://$(curl ifconfig.co)/$DM.zip
     echo -e "Results in : ${LIGHT_GREEN}$resultDir${NORMAL}"
-    cd $resultDir && zip "/var/www/html/$domain.zip" -r .
+    cd $resultDir && zip "/var/www/html/$DM.zip" -r .
     echo -e "${LIGHT_GREEN}" && tree $resultDir && echo -en "${NORMAL}"
     echo -e "Download your zip from : ${BOLD}${LIGHT_GREEN}${UNDERLINE}$link${NORMAL}"
     echo -e "Total Time taken : ${LIGHT_GREEN} $(( $ReconEndTime-$ReconStartTime )) ${NORMAL}seconds"    
 }
 
-VAULT1(){
+VAULT(){
     SUBD_SCAN 2> /dev/null
     IP_SCAN 2> /dev/null
-}
-
-VAULT2(){
+ #   FOOT_PRINT 2> /dev/null
     WEBC_RAWL 2> /dev/null
     NUCL_SCAN 2> /dev/null
     VULN_SCAN 2> /dev/null
@@ -379,7 +618,6 @@ while true
 do
     INFOM
     MAKDR
-    VAULT1
-    VAULT2
+    VAULT
     exit
 done
