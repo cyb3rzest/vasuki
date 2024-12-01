@@ -54,7 +54,7 @@ golanguage(){
         echo -e "\n${GR}GO INSTALLED SUCCESSFULLY${NORMAL}"
     else
         echo -e "\n${YW}THERE'S A PROBLEM IN INSTALLING ${LIGHT_GREEN}GO${NORMAL}, TRY INSTALLING IT MANUALLY${NORMAL}"
-    figrep -o 'go[0-9.]*'
+    fi
     rm -rf $goversion.linux-amd64.tar.gz
 }
 #golanguage
