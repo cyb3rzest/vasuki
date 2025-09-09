@@ -409,7 +409,8 @@ additional_tools(){
     echo -e "\n${BK}${BOLD}${UNDERLINE}${MAGENTA}INSTALLING ADDITIONAL BUG BOUNTY TOOLS${NORMAL}"
     
     echo -e "\n- Installing ParamSpider"
-    pip3 install paramspider > /dev/null 2>&1
+    git clone https://github.com/devanshbatham/ParamSpider.git > /dev/null 2>&1
+    cd ParamSpider && python3 setup.py install > /dev/null 2>&1
     if command -v paramspider &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -433,7 +434,7 @@ additional_tools(){
     fi
 
     echo -e "\n- Installing LinkFinder"
-    pip3 install linkfinder > /dev/null 2>&1
+    pip3 install git+https://github.com/GerbenJavado/LinkFinder.git > /dev/null 2>&1
     if command -v linkfinder &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -459,11 +460,10 @@ additional_tools(){
     fi
 
     echo -e "\n- Installing Xray"
-    cd ~/vasuki/.tmp/ && curl -L https://github.com/chaitin/xray/releases/latest/download/xray_linux_amd64.zip -o xray.zip > /dev/null 2>&1
-    unzip xray.zip > /dev/null 2>&1
+    cd ~/vasuki/.tmp/ && curl -L https://github.com/chaitin/xray/releases/download/1.8.2/xray_linux_amd64.zip -o xray.zip > /dev/null 2>&1
+    unzip xray.zip && rm -rf xray.zip > /dev/null 2>&1
     chmod +x xray
-    mv xray /usr/bin/ > /dev/null 2>&1
-    rm -rf xray.zip
+    mv xray /usr/local/bin/ > /dev/null 2>&1
     if command -v xray &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -495,7 +495,8 @@ additional_tools(){
     fi
 
     echo -e "\n- Installing TruffleHog"
-    go install github.com/trufflesecurity/trufflehog/v3@latest > /dev/null 2>&1
+    curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh -s -- -b /usr/local/bin > /dev/null 2>&1
+    pip3 install --ignore-installed GitPython==3.0.6 truffleHog > /dev/null 2>&1
     if [ -f ~/go/bin/trufflehog ]; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -529,20 +530,15 @@ additional_tools(){
     fi
 
     echo -e "\n- Installing Wappalyzer"
-    if command -v npm &> /dev/null; then
-        cd ~/vasuki/.tmp/ && git clone https://github.com/AliasIO/wappalyzer.git -q
-        cd wappalyzer && npm install > /dev/null 2>&1
-        if [ -d ~/vasuki/.tmp/wappalyzer ]; then
-            echo -e "${GR}SUCCESS${NORMAL}"
-        else
-            echo -e "${RED}FAILED, TRY INSTALLING WAPPALYZER MANUALLY${NORMAL}"
-        fi
+    pip3 install Wappalyzer > /dev/null 2>&1
+    if command -v wappalyzer &> /dev/null; then
+        echo -e "${GR}SUCCESS${NORMAL}"
     else
-        echo -e "${LIGHT_YELLOW}NPM not found, skipping Wappalyzer installation${NORMAL}"
+        echo -e "${RED}FAILED, TRY INSTALLING WAPPALYZER MANUALLY${NORMAL}"
     fi
 
     echo -e "\n- Installing Interlace"
-    pip3 install interlace > /dev/null 2>&1
+    git clone https://github.com/codingo/Interlace.git && cd Interlace && python3 setup.py install > /dev/null 2>&1
     if command -v interlace &> /dev/null; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
@@ -574,8 +570,8 @@ additional_tools(){
     fi
 
     echo -e "\n- Installing Jeeves (SQLi testing)"
-    go install github.com/ferreiraklet/Jeeves@latest > /dev/null 2>&1
-    if [ -f ~/go/bin/jeeves ]; then
+    git clone https://github.com/ferreiraklet/Jeeves.git && cd Jeeves && go build jeeves.go && chmod +x jeeves && cp jeeves /usr/local/bin/ > /dev/null 2>&1
+    if command -v jeeves; then
         echo -e "${GR}SUCCESS${NORMAL}"
     else
         echo -e "${RED}FAILED, TRY INSTALLING JEEVES MANUALLY${NORMAL}"
