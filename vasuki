@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # coded by CyberZest
 # inspired by Asheem Shrey
-# Vasuki - version 3.2
+# Vasuki - version 3.3
 
 #@> CHECK CONNECTION
 wget -q --spider http://google.com
@@ -34,7 +34,7 @@ company=$(echo $DM | awk -F[.] '{print $1}')
 SL=False
 JO=False
 RO=False
-VR="Vasuki v3.0"
+VR="Vasuki v3.2 Enhanced"
 PR="21,22,80,81,280,300,443,583,591,593,832,981,1010,1099,1311,2082,2087,2095,2096,2480,3000,3128,3333,4243,4444,4445,4567,4711,4712,4993,5000,5104,5108,5280,5281,5601,5800,6543,7000,7001,7002,7396,7474,8000,8001,8008,8009,8014,8042,8060,8069,8080,8081,8083,8088,8090,8091,8095,8118,8123,8172,8181,8222,8243,8280,8281,8333,8337,8443,8500,8530,8531,8834,8880,8887,8888,8983,9000,9001,9043,9060,9080,9090,9091,9092,9200,9443,9502,9800,9981,10000,10250,10443,11371,12043,12046,12443,15672,16080,17778,18091,18092,20720,28017,32000,55440,55672"
 
 
@@ -48,12 +48,12 @@ PRINT_USAGE(){
 \t\t░╚████╔╝░██╔══██║░╚═══██╗██║░░░██║██╔═██╗░██║
 \t\t░░╚██╔╝░░██║░░██║██████╔╝╚██████╔╝██║░╚██╗██║
 \t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
-\t\t					v 3.0
+\t\t					v 3.3
 ${NORMAL}"
     echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissance Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
     echo -e ""
     echo -e "Example Usage:"
-    echo -e "vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s]"
+    echo -e "vasuki [-d target.tld] [-x exclude domains] [-r resolvers] [-rF resolvers list] [--json] [-s] [-up]"
     echo -e ""
     echo -e "Flags:"
     echo -e "   -d, --domain             ${BK}string${NORMAL}       Add your target                         -d target.tld"
@@ -64,6 +64,7 @@ ${NORMAL}"
     echo -e "${BOLD}${LIGHT_MAGENTA}Optional Flags: ${NORMAL}"
     echo -e "   -s, --silent      Hide output in the terminal             ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
     echo -e "   -j, --json        Store output in a single json file      ${GR}Default: ${BOLD}${LIGHT_MAGENTA}False${NORMAL}"
+    echo -e "   -up, --update     Update all Vasuki tools                 ${GR}Updates 40+ security tools${NORMAL}"
     echo -e "   -v, --version     Print current version of vasuki"
     exit 0
 }
@@ -99,6 +100,10 @@ while [ -n "$1" ]; do
                 EC=$2
                 shift ;;
 
+            -up|--update)
+                UPDATE_TOOLS='true'
+                ;;
+
             -v|--version)
                 echo -e "$VR"
                 exit 0 ;;
@@ -110,7 +115,23 @@ while [ -n "$1" ]; do
 done
 
 
+#@> UPDATE TOOLS FUNCTION
+UPDATE_TOOLS_FUNC(){
+    echo -e "${BOLD}${LIGHT_MAGENTA}Updating Vasuki Tools...${NORMAL}"
+    if [ -f ~/vasuki/vasuki_update.sh ]; then
+        bash ~/vasuki/vasuki_update.sh
+    else
+        echo -e "${RED}Update script not found. Please run the installation script first.${NORMAL}"
+        exit 1
+    fi
+    exit 0
+}
+
 #@> INITIAL CONFIGS
+if [ "$UPDATE_TOOLS" == "true" ]; then
+    UPDATE_TOOLS_FUNC
+fi
+
 if [ -z "$DM" ]; then
     echo -e "\n${BOLD}${LIGHT_MAGENTA}ERROR${NORMAL} - TARGET NOT SUPPLIED."
     PRINT_USAGE
@@ -144,7 +165,7 @@ INFOM(){
 \t\t░╚████╔╝░██╔══██║░╚═══██╗██║░░░██║██╔═██╗░██║
 \t\t░░╚██╔╝░░██║░░██║██████╔╝╚██████╔╝██║░╚██╗██║
 \t\t░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝
-\t\t					v 3.0
+\t\t					v 3.3
 ${NORMAL}"
     echo -e "[${YW}VASUKI${NORMAL}] == A Reconnaissance Suite for BUG-HUNTERS (${BOLD}${MAGENTA}@CyberZest${NORMAL})"
     dt=$(date +%F.%H.%M)
@@ -167,6 +188,11 @@ MAKDR(){
     mkdir -p $resultDir/tmp
     mkdir -p $resultDir/gf
     mkdir -p $resultDir/vulns
+    mkdir -p $resultDir/additional
+    mkdir -p $resultDir/secrets
+    mkdir -p $resultDir/parameters
+    mkdir -p $resultDir/redirects
+    mkdir -p $resultDir/js
 #    mkdir -p $resultDir/footprint
     [ "$JO" == "False" ] || mkdir -p $resultDir/.json
 }
@@ -410,6 +436,136 @@ FUZZ_DIRS(){
     done
 }
 
+#@> ADDITIONAL TOOLS SCANNING
+ADDITIONAL_SCAN(){
+    echo -e ""
+    echo -e "${BOLD}${LIGHT_MAGENTA}        ${NORMAL}" | tr -d '\n' | pv -qL 6; echo -e " STARTING ADDITIONAL TOOLS SCANNING ON ${BOLD}${LIGHT_MAGENTA}$DM${NORMAL} (${YW}it may take time${NORMAL})"
+    
+    # ParamSpider - Parameter Discovery
+    echo -e "${LIGHT_YELLOW}Running ParamSpider for parameter discovery...${NORMAL}"
+    if command -v paramspider &> /dev/null; then
+        paramspider -d $DM --level high --subs -o $resultDir/parameters/paramspider.txt 2>/dev/null
+        echo -e "${LIGHT_GREEN}ParamSpider complete${NORMAL}"
+    fi
+    
+    # Arjun - Hidden Parameter Discovery
+    echo -e "${LIGHT_YELLOW}Running Arjun for hidden parameters...${NORMAL}"
+    if command -v arjun &> /dev/null; then
+        for url in $(cat $resultDir/lives.txt | head -10); do
+            arjun -u $url -o $resultDir/parameters/arjun_$(echo $url | sed 's/[^a-zA-Z0-9]/_/g').json 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}Arjun complete${NORMAL}"
+    fi
+    
+    # LinkFinder - JavaScript Endpoint Discovery
+    echo -e "${LIGHT_YELLOW}Running LinkFinder for JavaScript endpoints...${NORMAL}"
+    if command -v linkfinder &> /dev/null; then
+        for url in $(cat $resultDir/lives.txt | head -5); do
+            python3 -c "import linkfinder; linkfinder.main(['-i', '$url', '-o', '$resultDir/js/linkfinder_$(echo $url | sed 's/[^a-zA-Z0-9]/_/g').html'])" 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}LinkFinder complete${NORMAL}"
+    fi
+    
+    # SecretFinder - Secret Discovery
+    echo -e "${LIGHT_YELLOW}Running SecretFinder for secrets in JavaScript...${NORMAL}"
+    if [ -f ~/vasuki/.tmp/SecretFinder/SecretFinder.py ]; then
+        for url in $(cat $resultDir/lives.txt | head -5); do
+            python3 ~/vasuki/.tmp/SecretFinder/SecretFinder.py -i $url -o $resultDir/secrets/secretfinder_$(echo $url | sed 's/[^a-zA-Z0-9]/_/g').html 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}SecretFinder complete${NORMAL}"
+    fi
+    
+    # OpenRedireX - Open Redirect Testing
+    echo -e "${LIGHT_YELLOW}Running OpenRedireX for open redirects...${NORMAL}"
+    if [ -f ~/vasuki/.tmp/OpenRedireX/openredirex.py ]; then
+        python3 ~/vasuki/.tmp/OpenRedireX/openredirex.py -l $resultDir/lives.txt -p ~/vasuki/.tmp/OpenRedireX/payloads.txt -o $resultDir/redirects/openredirex.txt 2>/dev/null
+        echo -e "${LIGHT_GREEN}OpenRedireX complete${NORMAL}"
+    fi
+    
+    # Katana - Advanced Web Crawling
+    echo -e "${LIGHT_YELLOW}Running Katana for advanced crawling...${NORMAL}"
+    if command -v katana &> /dev/null; then
+        katana -list $resultDir/lives.txt -depth 3 -o $resultDir/additional/katana.txt 2>/dev/null
+        echo -e "${LIGHT_GREEN}Katana complete${NORMAL}"
+    fi
+    
+    # Hakrawler - Fast Web Crawling
+    echo -e "${LIGHT_YELLOW}Running Hakrawler for fast crawling...${NORMAL}"
+    if command -v hakrawler &> /dev/null; then
+        for url in $(cat $resultDir/lives.txt | head -10); do
+            echo $url | hakrawler >> $resultDir/additional/hakrawler.txt 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}Hakrawler complete${NORMAL}"
+    fi
+    
+    # TruffleHog - Secret Scanning
+    echo -e "${LIGHT_YELLOW}Running TruffleHog for secret scanning...${NORMAL}"
+    if command -v trufflehog &> /dev/null; then
+        # Scan GitHub repositories related to the domain
+        trufflehog git https://github.com/search?q=$DM --no-verification -o $resultDir/secrets/trufflehog.txt 2>/dev/null
+        echo -e "${LIGHT_GREEN}TruffleHog complete${NORMAL}"
+    fi
+    
+    # Gitleaks - Git Secret Detection
+    echo -e "${LIGHT_YELLOW}Running Gitleaks for git secrets...${NORMAL}"
+    if command -v gitleaks &> /dev/null; then
+        # This would need to be run on actual git repositories
+        echo -e "${LIGHT_YELLOW}Gitleaks requires local git repositories${NORMAL}"
+    fi
+    
+    # Xray - Multi-vulnerability Scanner
+    echo -e "${LIGHT_YELLOW}Running Xray for multi-vulnerability scanning...${NORMAL}"
+    if command -v xray &> /dev/null; then
+        for url in $(cat $resultDir/lives.txt | head -5); do
+            xray webscan --url $url --plugins xss,sqli,ssrf --output $resultDir/vulns/xray_$(echo $url | sed 's/[^a-zA-Z0-9]/_/g').txt 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}Xray complete${NORMAL}"
+    fi
+    
+    # Jaeles - Template-based Scanner
+    echo -e "${LIGHT_YELLOW}Running Jaeles for template-based scanning...${NORMAL}"
+    if command -v jaeles &> /dev/null; then
+        jaeles scan -s ~/.jaeles/signatures/ -l $resultDir/lives.txt -o $resultDir/vulns/jaeles.txt 2>/dev/null
+        echo -e "${LIGHT_GREEN}Jaeles complete${NORMAL}"
+    fi
+    
+    # SQLMap - SQL Injection Testing
+    echo -e "${LIGHT_YELLOW}Running SQLMap for SQL injection testing...${NORMAL}"
+    if [ -f ~/vasuki/.tmp/sqlmap/sqlmap.py ]; then
+        for url in $(cat $resultDir/gf/sqli.list | head -5); do
+            python3 ~/vasuki/.tmp/sqlmap/sqlmap.py -u "$url" --batch --no-logging --output-dir=$resultDir/vulns/sqlmap/ 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}SQLMap complete${NORMAL}"
+    fi
+    
+    # Wfuzz - Web Fuzzing
+    echo -e "${LIGHT_YELLOW}Running Wfuzz for web fuzzing...${NORMAL}"
+    if command -v wfuzz &> /dev/null; then
+        for url in $(cat $resultDir/lives.txt | head -3); do
+            wfuzz -c -z file,~/vasuki/wordlists/fuzz.txt --hc 404 $url/FUZZ >> $resultDir/additional/wfuzz.txt 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}Wfuzz complete${NORMAL}"
+    fi
+    
+    # EyeWitness - Screenshot and Analysis
+    echo -e "${LIGHT_YELLOW}Running EyeWitness for screenshots...${NORMAL}"
+    if [ -f ~/vasuki/.tmp/EyeWitness/Python/EyeWitness.py ]; then
+        python3 ~/vasuki/.tmp/EyeWitness/Python/EyeWitness.py -f $resultDir/lives.txt --web --no-prompt -d $resultDir/additional/eyewitness/ 2>/dev/null
+        echo -e "${LIGHT_GREEN}EyeWitness complete${NORMAL}"
+    fi
+    
+    # Wappalyzer - Technology Detection
+    echo -e "${LIGHT_YELLOW}Running Wappalyzer for technology detection...${NORMAL}"
+    if [ -d ~/vasuki/.tmp/wappalyzer ]; then
+        for url in $(cat $resultDir/lives.txt | head -10); do
+            node ~/vasuki/.tmp/wappalyzer/src/drivers/npm/cli.js $url >> $resultDir/additional/wappalyzer.txt 2>/dev/null
+        done
+        echo -e "${LIGHT_GREEN}Wappalyzer complete${NORMAL}"
+    fi
+    
+    echo -e "Additional tools scanning completed" | notify -silent &> /dev/null
+}
+
 #@> SENDING FINAL NOTIFICATION
 SEND_NOTE(){
     echo -e ""
@@ -430,6 +586,7 @@ VAULT(){
     WEBC_RAWL 2> /dev/null
     NUCL_SCAN 2> /dev/null
     VULN_SCAN 2> /dev/null
+    ADDITIONAL_SCAN 2> /dev/null
     FUZZ_DIRS 2> /dev/null
     SEND_NOTE 2> /dev/null
 }
